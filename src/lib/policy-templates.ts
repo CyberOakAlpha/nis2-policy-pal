@@ -16,8 +16,8 @@ export interface PolicySection {
 }
 
 export function getPolicyTitle(type: PolicyType): string {
-  if (type === "network") return "Netwerktoegangsbeleid";
-  return "Toegangsbeleid";
+  if (type === "network") return "Network access policy";
+  return "Access policy";
 }
 
 export function generatePolicySections(data: PolicyFormData): PolicySection[] {

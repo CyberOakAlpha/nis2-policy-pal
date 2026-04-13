@@ -44,16 +44,21 @@ export function PolicyForm() {
     setEditedSections(null);
   };
 
-  const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim();
+  // Always generate sections - use placeholders for empty fields
+  const formWithDefaults = useMemo(() => ({
+    ...form,
+    companyName: form.companyName.trim() || "[company name]",
+    author: form.author.trim() || "[author]",
+    approvedBy: form.approvedBy.trim() || "[approver]",
+  }), [form]);
 
   const sections = useMemo(() => {
-    if (!isValid) return [];
-    return generatePolicySections(form);
-  }, [form.companyName, form.author, form.approvedBy, form.date, form.version, form.policyType]);
+    return generatePolicySections(formWithDefaults);
+  }, [formWithDefaults]);
 
-  // Auto-load preview when valid
+  // Auto-load preview
   useMemo(() => {
-    if (isValid && sections.length > 0) {
+    if (sections.length > 0) {
       setEditedSections(structuredClone(sections));
     }
   }, [sections]);
@@ -88,6 +93,8 @@ export function PolicyForm() {
     });
   };
 
+  const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim();
+
   const handleSavePDF = async () => {
     if (!isValid || loading) return;
     setLoading(true);
@@ -119,22 +126,6 @@ export function PolicyForm() {
           </CardHeader>
 
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label>Policy type</Label>
-              <Select
-                value={form.policyType}
-                onValueChange={(value) => update("policyType", value)}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="access">Toegangsbeleid</SelectItem>
-                  <SelectItem value="network">Netwerktoegangsbeleid</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
             <div className="space-y-2">
               <Label htmlFor="companyName">Company name</Label>
               <Input
@@ -187,10 +178,26 @@ export function PolicyForm() {
               </div>
             </div>
 
+            <div className="space-y-2">
+              <Label>Policy type</Label>
+              <Select
+                value={form.policyType}
+                onValueChange={(value) => update("policyType", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="access">Access policy</SelectItem>
+                  <SelectItem value="network">Network access policy</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
           </CardContent>
         </Card>
 
-        {isValid && editedSections && (
+        {editedSections && (
           <Card>
             <CardHeader>
               <CardTitle className="text-lg text-foreground">
