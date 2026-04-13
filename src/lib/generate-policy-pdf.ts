@@ -1,4 +1,4 @@
-import jsPDF from "jspdf";
+// jsPDF is dynamically imported to avoid SSR issues
 
 export interface PolicyFormData {
   companyName: string;
@@ -8,7 +8,8 @@ export interface PolicyFormData {
   version: string;
 }
 
-export function generateAccessPolicyPDF(data: PolicyFormData) {
+export async function generateAccessPolicyPDF(data: PolicyFormData) {
+  const { default: jsPDF } = await import("jspdf");
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   const margin = 20;
