@@ -104,7 +104,7 @@ export function PolicyForm() {
 
   return (
     <main className="flex min-h-screen justify-center bg-background p-4 py-8">
-      <div className="w-full max-w-2xl space-y-5">
+      <div className="w-full max-w-3xl space-y-5">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
             NIS2 policy generator
