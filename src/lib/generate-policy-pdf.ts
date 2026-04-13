@@ -20,36 +20,37 @@ export async function generateAccessPolicyPDF(data: PolicyFormData) {
     doc.setFontSize(fontSize);
     doc.setFont("helvetica", bold ? "bold" : "normal");
     const lines = doc.splitTextToSize(text, contentWidth - indent);
+
     if (y + lines.length * (fontSize * 0.5) > 270) {
       doc.addPage();
       y = 20;
     }
+
     doc.text(lines, margin + indent, y);
     y += lines.length * (fontSize * 0.45) + 4;
   };
 
-  const addSpacer = (h = 6) => { y += h; };
+  const addSpacer = (height = 6) => {
+    y += height;
+  };
 
-  // === COVER / TITLE ===
-  doc.setFillColor(20, 30, 50);
-  doc.rect(0, 0, pageWidth, 60, "F");
+  doc.setFillColor(168, 123, 70);
+  doc.rect(0, 0, pageWidth, 54, "F");
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(24);
+  doc.setFontSize(22);
   doc.setFont("helvetica", "bold");
-  doc.text("Access Control Policy", margin, 35);
-  doc.setFontSize(12);
+  doc.text("Toegangsbeleid", margin, 30);
+  doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  doc.text(`${data.companyName} — NIS2 Compliance`, margin, 48);
-  doc.setTextColor(0, 0, 0);
-  y = 75;
+  doc.text(data.companyName, margin, 42);
+  doc.setTextColor(45, 33, 18);
+  y = 72;
 
-  // === DOCUMENT CONTROL ===
-  addLine("Document Control", 16, true);
+  addLine("Documentbeheer", 15, true);
   addSpacer(4);
 
-  // Table
   const tableData = [
-    ["Document Title", "Access Control Policy"],
+    ["Titel", "Toegangsbeleid"],
     ["Versie", data.version || "1.0"],
     ["Auteur", data.author],
     ["Goedgekeurd door", data.approvedBy],
@@ -59,137 +60,124 @@ export async function generateAccessPolicyPDF(data: PolicyFormData) {
   ];
 
   doc.setFontSize(10);
-  const colW1 = 55;
-  const colW2 = contentWidth - colW1;
-  const rowH = 8;
+  const rowHeight = 8;
 
-  tableData.forEach(([label, value], i) => {
-    if (y + rowH > 270) { doc.addPage(); y = 20; }
-    const fillColor = i % 2 === 0 ? 240 : 250;
-    doc.setFillColor(fillColor, fillColor, fillColor);
-    doc.rect(margin, y - 5, contentWidth, rowH, "F");
+  tableData.forEach(([label, value], index) => {
+    if (y + rowHeight > 270) {
+      doc.addPage();
+      y = 20;
+    }
+
+    const shade = index % 2 === 0 ? 245 : 251;
+    doc.setFillColor(shade, 239, 231);
+    doc.rect(margin, y - 5, contentWidth, rowHeight, "F");
     doc.setFont("helvetica", "bold");
     doc.text(label, margin + 3, y);
     doc.setFont("helvetica", "normal");
-    doc.text(value, margin + colW1 + 3, y);
-    y += rowH;
+    doc.text(value, margin + 58, y);
+    y += rowHeight;
   });
 
   addSpacer(10);
 
-  // === INTRO ===
   addLine("1. Inleiding", 14, true);
   addSpacer(2);
   addLine(
-    `${data.companyName} heeft dit Access Control Policy opgesteld in het kader van de NIS2-richtlijn (EU 2022/2555). Dit document beschrijft de maatregelen en procedures die ${data.companyName} hanteert om de toegang tot informatiesystemen, netwerken en gegevens te beheersen en te beveiligen.`
+    `${data.companyName} heeft dit toegangsbeleid opgesteld in het kader van de NIS2-richtlijn. In dit document staat hoe toegang tot systemen, netwerken en informatie wordt toegekend, beheerd en opgevolgd.`
   );
   addSpacer(2);
   addLine(
-    `Dit beleid is opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`
+    `Dit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`
   );
   addSpacer(6);
 
-  // === SCOPE ===
   addLine("2. Toepassingsgebied", 14, true);
   addSpacer(2);
   addLine(
-    `Dit beleid is van toepassing op alle medewerkers, contractanten, leveranciers en derde partijen die toegang hebben tot de informatiesystemen en gegevens van ${data.companyName}. Het omvat zowel fysieke als logische toegangscontrole.`
+    `Dit beleid geldt voor medewerkers, externe partijen en leveranciers die toegang hebben tot systemen of gegevens van ${data.companyName}. Het omvat fysieke en digitale toegang.`
   );
   addSpacer(6);
 
-  // === PRINCIPLES ===
-  addLine("3. Principes van Toegangscontrole", 14, true);
+  addLine("3. Basisprincipes", 14, true);
   addSpacer(2);
   const principles = [
-    "Least Privilege: Gebruikers krijgen alleen de minimale rechten die nodig zijn voor hun functie.",
-    "Need-to-Know: Toegang tot informatie wordt alleen verleend indien noodzakelijk voor de uitvoering van taken.",
-    "Scheiding van Taken (Segregation of Duties): Kritieke functies worden verdeeld over meerdere personen.",
-    "Identificatie en Authenticatie: Alle gebruikers moeten zich identificeren en authenticeren voordat toegang wordt verleend.",
-    "Periodieke Herziening: Toegangsrechten worden minimaal elk kwartaal herzien.",
+    "Gebruikers krijgen alleen de rechten die nodig zijn voor hun functie.",
+    "Toegang tot informatie wordt alleen verleend wanneer dat nodig is voor het werk.",
+    "Kritieke taken worden waar mogelijk verdeeld over meerdere personen.",
+    "Elke gebruiker moet zich identificeren en authenticeren voor toegang.",
+    "Toegangsrechten worden periodiek nagekeken en aangepast.",
   ];
-  principles.forEach((p, i) => {
-    addLine(`${i + 1}. ${p}`, 11, false, 5);
+  principles.forEach((principle, index) => {
+    addLine(`${index + 1}. ${principle}`, 11, false, 5);
   });
   addSpacer(6);
 
-  // === USER MANAGEMENT ===
   addLine("4. Gebruikersbeheer", 14, true);
   addSpacer(2);
-  addLine("4.1 Aanmaken van accounts", 12, true);
+  addLine("4.1 Nieuwe accounts", 12, true);
   addLine(
-    `Nieuwe gebruikersaccounts worden aangemaakt na goedkeuring door de directe leidinggevende en de IT-verantwoordelijke van ${data.companyName}. Elk account is persoonlijk en mag niet gedeeld worden.`
+    `Nieuwe accounts worden pas aangemaakt na goedkeuring door de verantwoordelijke binnen ${data.companyName}. Accounts zijn persoonlijk en mogen niet gedeeld worden.`
   );
   addSpacer(4);
   addLine("4.2 Wijziging van rechten", 12, true);
   addLine(
-    "Bij functiewijziging worden toegangsrechten herzien en aangepast. De vorige rechten worden ingetrokken voordat nieuwe rechten worden toegekend."
+    "Bij een functiewijziging worden bestaande rechten herzien en aangepast aan de nieuwe rol."
   );
   addSpacer(4);
-  addLine("4.3 Uitdiensttreding", 12, true);
+  addLine("4.3 Einde van samenwerking", 12, true);
   addLine(
-    "Bij uitdiensttreding worden alle accounts en toegangsrechten onmiddellijk ingetrokken. Dit geldt ook voor fysieke toegangsmiddelen zoals badges en sleutels."
+    "Wanneer iemand uit dienst gaat of een samenwerking stopt, worden toegangen onmiddellijk ingetrokken."
   );
   addSpacer(6);
 
-  // === PASSWORD POLICY ===
-  addLine("5. Wachtwoordbeleid", 14, true);
+  addLine("5. Wachtwoorden en aanmelding", 14, true);
   addSpacer(2);
-  const pwRules = [
-    "Minimaal 12 tekens lang",
-    "Combinatie van hoofdletters, kleine letters, cijfers en speciale tekens",
-    "Wachtwoorden worden elke 90 dagen gewijzigd",
-    "Vorige 12 wachtwoorden mogen niet hergebruikt worden",
-    "Multi-Factor Authenticatie (MFA) is verplicht voor alle kritieke systemen",
+  const passwordRules = [
+    "Wachtwoorden zijn minstens 12 tekens lang.",
+    "Ze bevatten een mix van letters, cijfers en speciale tekens.",
+    "Waar nodig wordt multifactorauthenticatie gebruikt.",
+    "Toegang tot kritieke systemen wordt extra afgeschermd.",
   ];
-  pwRules.forEach((r) => {
-    addLine(`• ${r}`, 11, false, 5);
+  passwordRules.forEach((rule, index) => {
+    addLine(`${index + 1}. ${rule}`, 11, false, 5);
   });
   addSpacer(6);
 
-  // === PHYSICAL ACCESS ===
-  addLine("6. Fysieke Toegangscontrole", 14, true);
+  addLine("6. Fysieke toegang", 14, true);
   addSpacer(2);
   addLine(
-    `De kantoren en serverruimtes van ${data.companyName} zijn beveiligd met elektronische toegangscontrole. Bezoekers worden geregistreerd en begeleid. Toegang tot serverruimtes is beperkt tot geautoriseerd IT-personeel.`
+    `Gebouwen, werkruimtes en technische ruimtes van ${data.companyName} worden beschermd tegen ongeoorloofde toegang. Bezoekers worden geregistreerd en begeleid waar nodig.`
   );
   addSpacer(6);
 
-  // === MONITORING ===
-  addLine("7. Monitoring en Logging", 14, true);
+  addLine("7. Logging en controle", 14, true);
   addSpacer(2);
   addLine(
-    "Alle toegangspogingen worden gelogd en bewaard voor minimaal 12 maanden. Verdachte activiteiten worden automatisch gemeld aan het security team. Logs worden maandelijks beoordeeld."
+    "Toegangspogingen en relevante wijzigingen worden gelogd. Verdachte activiteiten worden onderzocht en indien nodig geëscaleerd."
   );
   addSpacer(6);
 
-  // === INCIDENT ===
-  addLine("8. Incidentbeheer", 14, true);
+  addLine("8. Incidenten", 14, true);
   addSpacer(2);
   addLine(
-    `Bij een vermoedelijke inbreuk op de toegangscontrole wordt het incident onmiddellijk gemeld aan de Security Officer van ${data.companyName}. Het incidentresponsproces wordt gevolgd conform het Incident Response Plan.`
+    `Een vermoeden van misbruik of ongeoorloofde toegang wordt meteen gemeld volgens de interne procedure van ${data.companyName}.`
   );
   addSpacer(6);
 
-  // === REVIEW ===
   addLine("9. Herziening", 14, true);
   addSpacer(2);
   addLine(
-    "Dit beleid wordt minimaal jaarlijks herzien of bij significante wijzigingen in de organisatie, wetgeving of dreigingslandschap. De herziening wordt uitgevoerd door de auteur en goedgekeurd door het management."
+    "Dit beleid wordt minstens jaarlijks herzien en aangepast wanneer de organisatie, risico's of wettelijke vereisten veranderen."
   );
 
-  // Footer on each page
   const totalPages = doc.getNumberOfPages();
-  for (let i = 1; i <= totalPages; i++) {
-    doc.setPage(i);
+  for (let page = 1; page <= totalPages; page++) {
+    doc.setPage(page);
     doc.setFontSize(8);
-    doc.setTextColor(150, 150, 150);
-    doc.text(
-      `${data.companyName} — Access Control Policy v${data.version || "1.0"} — Pagina ${i} van ${totalPages}`,
-      margin,
-      290
-    );
-    doc.setTextColor(0, 0, 0);
+    doc.setTextColor(120, 95, 70);
+    doc.text(`Pagina ${page} van ${totalPages}`, margin, 290);
   }
 
-  doc.save(`Access_Control_Policy_${data.companyName.replace(/\s+/g, "_")}.pdf`);
+  const safeName = data.companyName.trim().replace(/\s+/g, "_") || "bedrijf";
+  doc.save(`toegangsbeleid_${safeName}.pdf`);
 }
