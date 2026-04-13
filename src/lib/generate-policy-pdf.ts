@@ -38,10 +38,18 @@ export async function generatePolicyPDF(
   doc.setFillColor(44, 82, 130);
   doc.rect(0, 0, pageWidth, 54, "F");
 
-  // Diagonal dark blue accent line
+  // Curved diagonal dark blue accent
   doc.setDrawColor(20, 50, 90);
-  doc.setLineWidth(2);
-  doc.line(0, 54, pageWidth, 44);
+  doc.setLineWidth(2.5);
+  // Bézier curve: starts bottom-left of header, curves up to top-right
+  const ctx = doc.context2d;
+  // Use internal API for bezier curve
+  (doc as any).internal.out(
+    `${(0).toFixed(2)} ${(doc.internal.pageSize.getHeight() - 54).toFixed(2)} m ` +
+    `${(pageWidth * 0.4 * 2.835).toFixed(2)} ${(doc.internal.pageSize.getHeight() - 52).toFixed(2)} ` +
+    `${(pageWidth * 0.7 * 2.835).toFixed(2)} ${(doc.internal.pageSize.getHeight() - 38).toFixed(2)} ` +
+    `${(pageWidth * 2.835).toFixed(2)} ${(doc.internal.pageSize.getHeight() - 36).toFixed(2)} c S`
+  );
 
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
