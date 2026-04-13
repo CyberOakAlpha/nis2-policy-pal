@@ -1,4 +1,4 @@
-import jsPDF from "jspdf";
+import type { jsPDF as JsPDFType } from "jspdf";
 
 export interface PolicyFormData {
   companyName: string;
