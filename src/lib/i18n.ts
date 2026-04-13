@@ -55,9 +55,28 @@ export interface Translations {
   // Roadmap
   roadmapTitle: string;
   roadmapSubtitle: string;
-  roadmapSteps: { title: string; description: string }[];
+  roadmapSteps: { title: string; description: string; examples: string[] }[];
   backToGenerator: string;
   goToRoadmap: string;
+  viewExamples: string;
+  exampleAssets: string;
+
+  // Asset template
+  assetTemplateTitle: string;
+  assetTemplateSubtitle: string;
+  assetHardware: string;
+  assetSoftware: string;
+  assetColumnName: string;
+  assetColumnType: string;
+  assetColumnOwner: string;
+  assetColumnCriticality: string;
+  assetColumnLocation: string;
+  assetColumnLicense: string;
+  assetColumnVersion: string;
+  assetColumnVendor: string;
+  hardwareAssets: { name: string; type: string; owner: string; criticality: string; location: string }[];
+  softwareAssets: { name: string; type: string; vendor: string; version: string; license: string; criticality: string }[];
+  downloadTemplate: string;
 
   // Nav
   generator: string;
