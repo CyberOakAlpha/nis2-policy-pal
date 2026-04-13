@@ -105,27 +105,24 @@ export function PolicyForm() {
   return (
     <main className="flex min-h-screen justify-center bg-background p-4 py-8">
       <div className="w-full max-w-3xl space-y-5">
-        <div className="space-y-3 text-center">
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Quick NIS2 policy generator
-          </h1>
-          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-            This tool helps you create professional NIS2-compliant policies. Fill in the form, adjust the template text to your specific needs, press save and you have your own pro NIS2 policy — fully compliant with NIS2 requirements.
-          </p>
-        </div>
-
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg text-foreground">
-              <FileText className="h-5 w-5 text-primary" />
-              Document details
+            <CardTitle className="text-xl font-bold text-foreground">
+              Quick NIS2 policy generator
             </CardTitle>
             <CardDescription>
-              These details are automatically filled into the document.
+              This tool helps you create professional NIS2-compliant policies. Fill in the form, adjust the template text to your specific needs, press save and you have your own pro NIS2 policy — fully compliant with NIS2 requirements.
             </CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-4">
+            <div className="border-b border-border pb-3 mb-1">
+              <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                Document details
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">These details are automatically filled into the document.</p>
+            </div>
             <div className="space-y-2">
               <Label htmlFor="companyName">Company name</Label>
               <Input
