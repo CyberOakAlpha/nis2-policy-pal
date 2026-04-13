@@ -38,10 +38,24 @@ export async function generatePolicyPDF(
   doc.setFillColor(44, 82, 130);
   doc.rect(0, 0, pageWidth, 54, "F");
 
-  // Diagonal dark blue accent line
+  // Curved diagonal dark blue accent line (approximated with segments)
   doc.setDrawColor(20, 50, 90);
-  doc.setLineWidth(2);
-  doc.line(0, 54, pageWidth, 44);
+  doc.setLineWidth(2.5);
+  const steps = 40;
+  for (let i = 0; i < steps; i++) {
+    const t0 = i / steps;
+    const t1 = (i + 1) / steps;
+    // Bézier: P0=(0,56) P1=(80,55) P2=(160,40) P3=(pageWidth,36)
+    const bx = (t: number) => {
+      const mt = 1 - t;
+      return mt * mt * mt * 0 + 3 * mt * mt * t * 80 + 3 * mt * t * t * 160 + t * t * t * pageWidth;
+    };
+    const by = (t: number) => {
+      const mt = 1 - t;
+      return mt * mt * mt * 56 + 3 * mt * mt * t * 55 + 3 * mt * t * t * 40 + t * t * t * 36;
+    };
+    doc.line(bx(t0), by(t0), bx(t1), by(t1));
+  }
 
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
