@@ -25,6 +25,19 @@ import {
   type PolicyType,
   type PolicySection,
 } from "@/lib/policy-templates";
+
+const POLICY_OPTIONS: { value: PolicyType; label: string }[] = [
+  { value: "access", label: "Toegangsbeleid" },
+  { value: "network", label: "Netwerktoegangsbeleid" },
+  { value: "incident", label: "Incidentresponsbeleid" },
+  { value: "bcp", label: "Bedrijfscontinuïteitsplan" },
+  { value: "risk", label: "Risicobeheerbeleid" },
+  { value: "supply-chain", label: "Leveranciersbeheer" },
+  { value: "crypto", label: "Cryptografie en encryptie" },
+  { value: "awareness", label: "Bewustmaking en opleiding" },
+  { value: "vulnerability", label: "Kwetsbaarheidsbeheer" },
+  { value: "backup", label: "Back-up en herstel" },
+];
 import { Download, FileText } from "lucide-react";
 
 export function PolicyForm() {
@@ -189,8 +202,11 @@ export function PolicyForm() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="access">Access policy</SelectItem>
-                  <SelectItem value="network">Network access policy</SelectItem>
+                  {POLICY_OPTIONS.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

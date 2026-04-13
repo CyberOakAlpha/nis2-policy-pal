@@ -1,5 +1,5 @@
 import type { PolicyFormData, PolicySection } from "./policy-templates";
-import { getPolicyTitle, generatePolicySections } from "./policy-templates";
+import { getPolicyTitle, getPolicySlug } from "./policy-templates";
 
 export async function generatePolicyPDF(
   data: PolicyFormData,
@@ -157,6 +157,6 @@ export async function generatePolicyPDF(
   }
 
   const safeName = data.companyName.trim().replace(/\s+/g, "_") || "bedrijf";
-  const typeSlug = data.policyType === "network" ? "netwerktoegang" : "toegangsbeleid";
+  const typeSlug = getPolicySlug(data.policyType);
   doc.save(`${typeSlug}_${safeName}.pdf`);
 }
