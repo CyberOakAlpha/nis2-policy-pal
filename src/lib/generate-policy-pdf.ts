@@ -38,22 +38,30 @@ export async function generatePolicyPDF(
   doc.setFillColor(44, 82, 130);
   doc.rect(0, 0, pageWidth, 54, "F");
 
-  // Curved diagonal dark blue accent line
-  doc.setDrawColor(20, 50, 90);
-  doc.setLineWidth(2.5);
+  // Dark blue fill below the curve
   const steps = 30;
+  const bx = (t: number) => {
+    const mt = 1 - t;
+    return mt * mt * mt * 0 + 3 * mt * mt * t * (pageWidth * 0.35) + 3 * mt * t * t * (pageWidth * 0.7) + t * t * t * pageWidth;
+  };
+  const by = (t: number) => {
+    const mt = 1 - t;
+    return mt * mt * mt * 52 + 3 * mt * mt * t * 51 + 3 * mt * t * t * 42 + t * t * t * 38;
+  };
+
+  // Fill area below curve with dark blue using thin vertical strips
+  doc.setFillColor(20, 50, 90);
   for (let i = 0; i < steps; i++) {
     const t0 = i / steps;
     const t1 = (i + 1) / steps;
-    const bx = (t: number) => {
-      const mt = 1 - t;
-      return mt * mt * mt * 0 + 3 * mt * mt * t * (pageWidth * 0.35) + 3 * mt * t * t * (pageWidth * 0.7) + t * t * t * pageWidth;
-    };
-    const by = (t: number) => {
-      const mt = 1 - t;
-      return mt * mt * mt * 52 + 3 * mt * mt * t * 51 + 3 * mt * t * t * 42 + t * t * t * 38;
-    };
-    doc.line(bx(t0), by(t0), bx(t1), by(t1));
+    const x0 = bx(t0);
+    const x1 = bx(t1);
+    const y0 = by(t0);
+    const y1 = by(t1);
+    const bottom = 54;
+    // Draw a filled triangle-strip quad
+    doc.triangle(x0, y0, x1, y1, x1, bottom, "F");
+    doc.triangle(x0, y0, x1, bottom, x0, bottom, "F");
   }
 
   doc.setTextColor(255, 255, 255);
