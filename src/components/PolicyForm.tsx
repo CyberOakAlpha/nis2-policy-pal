@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "@tanstack/react-router";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -18,29 +19,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { generatePolicyPDF } from "@/lib/generate-policy-pdf";
+import { generateBundlePDF } from "@/lib/generate-bundle-pdf";
 import {
   generatePolicySections,
-  getPolicyTitle,
   type PolicyFormData,
   type PolicyType,
   type PolicySection,
 } from "@/lib/policy-templates";
+import { generateEnglishSections } from "@/lib/policy-templates-en";
+import { generateFrenchSections } from "@/lib/policy-templates-fr";
+import { useI18n } from "@/lib/i18n";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { Download, FileText, Package, Map } from "lucide-react";
 
-const POLICY_OPTIONS: { value: PolicyType; label: string }[] = [
-  { value: "access", label: "Toegangsbeleid" },
-  { value: "network", label: "Netwerktoegangsbeleid" },
-  { value: "incident", label: "Incidentresponsbeleid" },
-  { value: "bcp", label: "Bedrijfscontinuïteitsplan" },
-  { value: "risk", label: "Risicobeheerbeleid" },
-  { value: "supply-chain", label: "Leveranciersbeheer" },
-  { value: "crypto", label: "Cryptografie en encryptie" },
-  { value: "awareness", label: "Bewustmaking en opleiding" },
-  { value: "vulnerability", label: "Kwetsbaarheidsbeheer" },
-  { value: "backup", label: "Back-up en herstel" },
+const POLICY_TYPES: PolicyType[] = [
+  "access", "network", "incident", "bcp", "risk",
+  "supply-chain", "crypto", "awareness", "vulnerability", "backup",
 ];
-import { Download, FileText } from "lucide-react";
 
 export function PolicyForm() {
+  const { t, lang } = useI18n();
   const [form, setForm] = useState<PolicyFormData>({
     companyName: "",
     author: "",
@@ -51,13 +49,13 @@ export function PolicyForm() {
   });
   const [editedSections, setEditedSections] = useState<PolicySection[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [bundleLoading, setBundleLoading] = useState(false);
 
   const update = (field: keyof PolicyFormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     setEditedSections(null);
   };
 
-  // Always generate sections - use placeholders for empty fields
   const formWithDefaults = useMemo(() => ({
     ...form,
     companyName: form.companyName.trim() || "[company name]",
@@ -66,10 +64,11 @@ export function PolicyForm() {
   }), [form]);
 
   const sections = useMemo(() => {
+    if (lang === "en") return generateEnglishSections(formWithDefaults);
+    if (lang === "fr") return generateFrenchSections(formWithDefaults);
     return generatePolicySections(formWithDefaults);
-  }, [formWithDefaults]);
+  }, [formWithDefaults, lang]);
 
-  // Auto-load preview
   useMemo(() => {
     if (sections.length > 0) {
       setEditedSections(structuredClone(sections));
@@ -111,40 +110,48 @@ export function PolicyForm() {
   const handleSavePDF = async () => {
     if (!isValid || loading) return;
     setLoading(true);
-    await generatePolicyPDF(form, activeSections);
+    await generatePolicyPDF(form, activeSections, t);
     setLoading(false);
+  };
+
+  const handleBundlePDF = async () => {
+    if (!isValid || bundleLoading) return;
+    setBundleLoading(true);
+    await generateBundlePDF(form, lang, t);
+    setBundleLoading(false);
   };
 
   return (
     <main className="flex min-h-screen justify-center bg-background p-4 py-8">
       <div className="w-full max-w-3xl space-y-5">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground text-center">
-          NIS2 policy generator
-        </h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            {t.appTitle}
+          </h1>
+          <LanguageSwitcher />
+        </div>
 
         <Card>
           <CardHeader>
             <CardTitle className="text-xl font-bold text-foreground">
-              Quick NIS2 policy generator
+              {t.appSubtitle}
             </CardTitle>
-            <CardDescription>
-              This tool helps you create professional NIS2-compliant policies. Fill in the form, adjust the template text to your specific needs, press save and you have your own pro NIS2 policy — fully compliant with NIS2 requirements.
-            </CardDescription>
+            <CardDescription>{t.appDescription}</CardDescription>
           </CardHeader>
 
           <CardContent className="space-y-4">
             <div className="border-b border-border pb-3 mb-1">
               <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
                 <FileText className="h-5 w-5 text-primary" />
-                Document details
+                {t.documentDetails}
               </h3>
-              <p className="text-sm text-muted-foreground mt-1">These details are automatically filled into the document.</p>
+              <p className="text-sm text-muted-foreground mt-1">{t.documentDetailsDesc}</p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="companyName">Company name</Label>
+              <Label htmlFor="companyName">{t.companyName}</Label>
               <Input
                 id="companyName"
-                placeholder="e.g. Acme bv"
+                placeholder={t.companyNamePlaceholder}
                 value={form.companyName}
                 onChange={(e) => update("companyName", e.target.value)}
               />
@@ -152,19 +159,19 @@ export function PolicyForm() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="author">Author</Label>
+                <Label htmlFor="author">{t.author}</Label>
                 <Input
                   id="author"
-                  placeholder="Author name"
+                  placeholder={t.authorPlaceholder}
                   value={form.author}
                   onChange={(e) => update("author", e.target.value)}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="approvedBy">Approved by</Label>
+                <Label htmlFor="approvedBy">{t.approvedBy}</Label>
                 <Input
                   id="approvedBy"
-                  placeholder="Approver name"
+                  placeholder={t.approvedByPlaceholder}
                   value={form.approvedBy}
                   onChange={(e) => update("approvedBy", e.target.value)}
                 />
@@ -173,7 +180,7 @@ export function PolicyForm() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="date">Date</Label>
+                <Label htmlFor="date">{t.date}</Label>
                 <Input
                   id="date"
                   type="date"
@@ -182,7 +189,7 @@ export function PolicyForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="version">Version</Label>
+                <Label htmlFor="version">{t.version}</Label>
                 <Input
                   id="version"
                   placeholder="1.0"
@@ -193,7 +200,7 @@ export function PolicyForm() {
             </div>
 
             <div className="space-y-2">
-              <Label>Policy type</Label>
+              <Label>{t.policyType}</Label>
               <Select
                 value={form.policyType}
                 onValueChange={(value) => update("policyType", value)}
@@ -202,15 +209,34 @@ export function PolicyForm() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {POLICY_OPTIONS.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
+                  {POLICY_TYPES.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {t.policyNames[type]}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
+            {/* Roadmap link & Bundle download */}
+            <div className="flex flex-col gap-2 pt-2">
+              <Link to="/roadmap">
+                <Button variant="outline" className="w-full" size="sm">
+                  <Map className="mr-2 h-4 w-4" />
+                  {t.goToRoadmap}
+                </Button>
+              </Link>
+              <Button
+                variant="secondary"
+                className="w-full"
+                size="sm"
+                disabled={!isValid || bundleLoading}
+                onClick={handleBundlePDF}
+              >
+                <Package className="mr-2 h-4 w-4" />
+                {bundleLoading ? t.downloadingAll : t.downloadAll}
+              </Button>
+            </div>
           </CardContent>
         </Card>
 
@@ -218,11 +244,9 @@ export function PolicyForm() {
           <Card>
             <CardHeader>
               <CardTitle className="text-lg text-foreground">
-                Preview: {getPolicyTitle(form.policyType)}
+                {t.previewTitle}: {t.policyNames[form.policyType]}
               </CardTitle>
-              <CardDescription>
-                Edit the text where needed, then save as pdf.
-              </CardDescription>
+              <CardDescription>{t.previewDescription}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
               {editedSections.map((section, sectionIndex) => (
@@ -272,7 +296,7 @@ export function PolicyForm() {
                 onClick={handleSavePDF}
               >
                 <Download className="mr-2 h-4 w-4" />
-                {loading ? "Generating pdf..." : "Save as pdf"}
+                {loading ? t.generatingPdf : t.savePdf}
               </Button>
             </CardContent>
           </Card>
