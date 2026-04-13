@@ -37,13 +37,19 @@ export async function generatePolicyPDF(
   // Header bar - blue background, white text
   doc.setFillColor(44, 82, 130);
   doc.rect(0, 0, pageWidth, 54, "F");
+
+  // Diagonal dark blue accent line
+  doc.setDrawColor(20, 50, 90);
+  doc.setLineWidth(2);
+  doc.line(0, 54, pageWidth, 44);
+
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
   doc.setFont("helvetica", "bold");
-  doc.text(title, margin, 30);
+  doc.text(title, margin, 28);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  doc.text(data.companyName, margin, 42);
+  doc.text(data.companyName, margin, 40);
   y = 68;
 
   // Document control table
