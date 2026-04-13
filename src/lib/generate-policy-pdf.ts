@@ -51,7 +51,7 @@ export async function generatePolicyPDF(
     };
     const by = (t: number) => {
       const mt = 1 - t;
-      return mt * mt * mt * 56 + 3 * mt * mt * t * 55 + 3 * mt * t * t * 42 + t * t * t * 38;
+      return mt * mt * mt * 52 + 3 * mt * mt * t * 51 + 3 * mt * t * t * 42 + t * t * t * 38;
     };
     doc.line(bx(t0), by(t0), bx(t1), by(t1));
   }
