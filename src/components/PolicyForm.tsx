@@ -25,7 +25,7 @@ import {
   type PolicyType,
   type PolicySection,
 } from "@/lib/policy-templates";
-import { Download, FileText, Eye } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 
 export function PolicyForm() {
   const [form, setForm] = useState<PolicyFormData>({
@@ -36,14 +36,12 @@ export function PolicyForm() {
     version: "1.0",
     policyType: "access",
   });
-  const [showPreview, setShowPreview] = useState(false);
   const [editedSections, setEditedSections] = useState<PolicySection[] | null>(null);
   const [loading, setLoading] = useState(false);
 
   const update = (field: keyof PolicyFormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
     setEditedSections(null);
-    setShowPreview(false);
   };
 
   const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim();
@@ -53,13 +51,14 @@ export function PolicyForm() {
     return generatePolicySections(form);
   }, [form.companyName, form.author, form.approvedBy, form.date, form.version, form.policyType]);
 
-  const activeSections = editedSections ?? sections;
+  // Auto-load preview when valid
+  useMemo(() => {
+    if (isValid && sections.length > 0) {
+      setEditedSections(structuredClone(sections));
+    }
+  }, [sections]);
 
-  const handlePreview = () => {
-    if (!isValid) return;
-    setEditedSections(structuredClone(sections));
-    setShowPreview(true);
-  };
+  const activeSections = editedSections ?? sections;
 
   const updateSection = (index: number, field: "heading" | "content", value: string) => {
     setEditedSections((prev) => {
@@ -104,7 +103,7 @@ export function PolicyForm() {
             NIS2 policy generator
           </h1>
           <p className="text-sm text-muted-foreground">
-            Kies een policy, vul de gegevens in, bekijk de preview en sla op als pdf.
+            Select a policy, fill in the details, edit the preview and save as pdf.
           </p>
         </div>
 
@@ -112,10 +111,10 @@ export function PolicyForm() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg text-foreground">
               <FileText className="h-5 w-5 text-primary" />
-              Documentgegevens
+              Document details
             </CardTitle>
             <CardDescription>
-              Deze gegevens worden automatisch ingevuld in het document.
+              These details are automatically filled into the document.
             </CardDescription>
           </CardHeader>
 
@@ -137,10 +136,10 @@ export function PolicyForm() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="companyName">Bedrijfsnaam</Label>
+              <Label htmlFor="companyName">Company name</Label>
               <Input
                 id="companyName"
-                placeholder="Bijvoorbeeld Acme bv"
+                placeholder="e.g. Acme bv"
                 value={form.companyName}
                 onChange={(e) => update("companyName", e.target.value)}
               />
@@ -148,19 +147,19 @@ export function PolicyForm() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="author">Auteur</Label>
+                <Label htmlFor="author">Author</Label>
                 <Input
                   id="author"
-                  placeholder="Naam auteur"
+                  placeholder="Author name"
                   value={form.author}
                   onChange={(e) => update("author", e.target.value)}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="approvedBy">Goedkeurder</Label>
+                <Label htmlFor="approvedBy">Approved by</Label>
                 <Input
                   id="approvedBy"
-                  placeholder="Naam goedkeurder"
+                  placeholder="Approver name"
                   value={form.approvedBy}
                   onChange={(e) => update("approvedBy", e.target.value)}
                 />
@@ -169,7 +168,7 @@ export function PolicyForm() {
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="date">Datum</Label>
+                <Label htmlFor="date">Date</Label>
                 <Input
                   id="date"
                   type="date"
@@ -178,7 +177,7 @@ export function PolicyForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="version">Versie</Label>
+                <Label htmlFor="version">Version</Label>
                 <Input
                   id="version"
                   placeholder="1.0"
@@ -188,27 +187,17 @@ export function PolicyForm() {
               </div>
             </div>
 
-            <Button
-              variant="secondary"
-              className="mt-2 w-full"
-              size="lg"
-              disabled={!isValid}
-              onClick={handlePreview}
-            >
-              <Eye className="mr-2 h-4 w-4" />
-              Bekijk preview
-            </Button>
           </CardContent>
         </Card>
 
-        {showPreview && editedSections && (
+        {isValid && editedSections && (
           <Card>
             <CardHeader>
               <CardTitle className="text-lg text-foreground">
                 Preview: {getPolicyTitle(form.policyType)}
               </CardTitle>
               <CardDescription>
-                Pas de tekst aan waar nodig. Klik daarna op opslaan als pdf.
+                Edit the text where needed, then save as pdf.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
@@ -259,7 +248,7 @@ export function PolicyForm() {
                 onClick={handleSavePDF}
               >
                 <Download className="mr-2 h-4 w-4" />
-                {loading ? "Pdf wordt gemaakt..." : "Opslaan als pdf"}
+                {loading ? "Generating pdf..." : "Save as pdf"}
               </Button>
             </CardContent>
           </Card>
