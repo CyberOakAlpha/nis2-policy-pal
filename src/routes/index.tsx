@@ -5,8 +5,8 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "NIS2 Access Policy Generator — KMO Compliance Tool" },
-      { name: "description", content: "Genereer professionele NIS2-conforme Access Control Policy documenten voor uw KMO." },
+      { title: "NIS2 Policy Generator" },
+      { name: "description", content: "Genereer NIS2-conforme beleidsdocumenten voor uw KMO." },
     ],
   }),
 });
