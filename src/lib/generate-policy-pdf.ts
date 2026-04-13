@@ -1,4 +1,4 @@
-import type { jsPDF as JsPDFType } from "jspdf";
+// jsPDF is dynamically imported to avoid SSR issues
 
 export interface PolicyFormData {
   companyName: string;
