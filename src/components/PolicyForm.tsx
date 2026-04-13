@@ -46,7 +46,7 @@ export function PolicyForm() {
       <div className="w-full max-w-lg space-y-5">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            NIS2 Policy Generator
+            NIS2 policy generator
           </h1>
           <p className="text-sm text-muted-foreground">
             Vul 4 velden in en download meteen een NIS2-toegangsbeleid als pdf.
