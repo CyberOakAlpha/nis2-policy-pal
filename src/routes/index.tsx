@@ -1,19 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { PolicyForm } from "@/components/PolicyForm";
 
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "NIS2 Access Policy Generator — KMO Compliance Tool" },
+      { name: "description", content: "Genereer professionele NIS2-conforme Access Control Policy documenten voor uw KMO." },
+    ],
+  }),
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
-  return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
-  );
-}
-
 function Index() {
-  return <PlaceholderIndex />;
+  return <PolicyForm />;
 }
