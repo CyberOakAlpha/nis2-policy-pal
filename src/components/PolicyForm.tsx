@@ -105,12 +105,12 @@ export function PolicyForm() {
   return (
     <main className="flex min-h-screen justify-center bg-background p-4 py-8">
       <div className="w-full max-w-3xl space-y-5">
-        <div className="space-y-2 text-center">
+        <div className="space-y-3 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            NIS2 policy generator
+            Quick NIS2 policy generator
           </h1>
-          <p className="text-sm text-muted-foreground">
-            Select a policy, fill in the details, edit the preview and save as pdf.
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+            This tool helps you create professional NIS2-compliant policies. Fill in the form, adjust the template text to your specific needs, press save and you have your own pro NIS2 policy — fully compliant with NIS2 requirements.
           </p>
         </div>
 
