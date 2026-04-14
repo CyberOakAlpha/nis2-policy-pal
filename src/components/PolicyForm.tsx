@@ -256,12 +256,6 @@ export function PolicyForm() {
 
             {/* Roadmap link & Bundle download */}
             <div className="flex flex-col gap-2 pt-2">
-              <Link to="/roadmap">
-                <Button variant="outline" className="w-full" size="sm">
-                  <Map className="mr-2 h-4 w-4" />
-                  {t.goToRoadmap}
-                </Button>
-              </Link>
               <Button
                 variant="secondary"
                 className="w-full"
