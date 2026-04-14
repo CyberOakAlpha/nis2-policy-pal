@@ -12,8 +12,8 @@ export const Route = createFileRoute("/cyfun")({
   component: CyFunPage,
   head: () => ({
     meta: [
-      { title: "CyberFundamentals Controls - NIS2" },
-      { name: "description", content: "Overzicht van alle 93 CCB CyberFundamentals controls voor het niveau 'Belangrijk'." },
+      { title: "CCB Controls - NIS2" },
+      { name: "description", content: "Overzicht van alle 93 CCB controls voor het niveau 'Belangrijk'." },
     ],
   }),
 });
