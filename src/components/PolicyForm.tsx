@@ -137,9 +137,9 @@ export function PolicyForm() {
           <LanguageSwitcher />
         </div>
 
-        <nav className="flex items-center gap-2 rounded-md border bg-card p-1.5 shadow-sm">
+        <nav className="flex items-center justify-end rounded-md bg-primary p-1.5 shadow-sm">
           <Link to="/roadmap">
-            <Button variant="ghost" size="sm" className="gap-1.5 text-sm">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
               <Map className="h-4 w-4" />
               {t.goToRoadmap}
             </Button>
