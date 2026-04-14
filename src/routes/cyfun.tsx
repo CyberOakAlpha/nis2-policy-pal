@@ -119,7 +119,7 @@ function CyFunPage() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground pt-4 pb-2">
-          Bron: CCB CyberFundamentals Framework 2023 — Niveau Belangrijk
+          Bron: CCB Framework 2023 — Niveau Belangrijk
         </p>
       </div>
     </main>
