@@ -87,8 +87,10 @@ export async function generatePolicyPDF(
     [t.pdfTitle, title],
     [t.pdfVersion, data.version || "1.0"],
     [t.pdfAuthor, data.author],
+    [t.pdfOwner, data.owner || data.author],
     [t.pdfApprovedBy, data.approvedBy],
     [t.pdfDate, data.date],
+    [t.pdfApprovalDate, data.approvalDate || data.date],
     [t.pdfClassification, t.pdfClassificationValue],
     [t.pdfStatus, t.pdfStatusValue],
   ];
