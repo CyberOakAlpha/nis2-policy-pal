@@ -32,7 +32,7 @@ import { generateEnglishSections } from "@/lib/policy-templates-en";
 import { generateFrenchSections } from "@/lib/policy-templates-fr";
 import { useI18n } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { Download, FileText, Package, Map } from "lucide-react";
+import { Download, FileText, Package, Map, Shield } from "lucide-react";
 
 const POLICY_TYPES: PolicyType[] = [
   "access", "network", "incident", "bcp", "risk",
@@ -137,7 +137,13 @@ export function PolicyForm() {
           <LanguageSwitcher />
         </div>
 
-        <nav className="flex items-center justify-end rounded-md bg-primary p-1.5 shadow-sm">
+        <nav className="flex items-center justify-end gap-2 rounded-md bg-primary p-1.5 shadow-sm">
+          <Link to="/cyfun">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
+              <Shield className="h-4 w-4" />
+              {t.cyfunControls}
+            </Button>
+          </Link>
           <Link to="/roadmap">
             <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
               <Map className="h-4 w-4" />
