@@ -153,8 +153,8 @@ function RoadmapPage() {
                       <TableRow>
                         <TableHead>{t.assetColumnName}</TableHead>
                         <TableHead>{t.assetColumnType}</TableHead>
-                        <TableHead>{t.assetColumnOwner}</TableHead>
                         <TableHead>{t.assetColumnCriticality}</TableHead>
+                        <TableHead>{t.assetColumnOwner}</TableHead>
                         <TableHead>{t.assetColumnLocation}</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -163,12 +163,12 @@ function RoadmapPage() {
                         <TableRow key={i}>
                           <TableCell className="font-medium">{asset.name}</TableCell>
                           <TableCell>{asset.type}</TableCell>
-                          <TableCell>{asset.owner}</TableCell>
                           <TableCell>
                             <Badge variant={criticalityColor(asset.criticality)}>
                               {asset.criticality}
                             </Badge>
                           </TableCell>
+                          <TableCell>{asset.owner}</TableCell>
                           <TableCell>{asset.location}</TableCell>
                         </TableRow>
                       ))}
@@ -188,10 +188,10 @@ function RoadmapPage() {
                       <TableRow>
                         <TableHead>{t.assetColumnName}</TableHead>
                         <TableHead>{t.assetColumnType}</TableHead>
+                        <TableHead>{t.assetColumnCriticality}</TableHead>
                         <TableHead>{t.assetColumnVendor}</TableHead>
                         <TableHead>{t.assetColumnVersion}</TableHead>
                         <TableHead>{t.assetColumnLicense}</TableHead>
-                        <TableHead>{t.assetColumnCriticality}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -199,14 +199,14 @@ function RoadmapPage() {
                         <TableRow key={i}>
                           <TableCell className="font-medium">{asset.name}</TableCell>
                           <TableCell>{asset.type}</TableCell>
-                          <TableCell>{asset.vendor}</TableCell>
-                          <TableCell>{asset.version}</TableCell>
-                          <TableCell>{asset.license}</TableCell>
                           <TableCell>
                             <Badge variant={criticalityColor(asset.criticality)}>
                               {asset.criticality}
                             </Badge>
                           </TableCell>
+                          <TableCell>{asset.vendor}</TableCell>
+                          <TableCell>{asset.version}</TableCell>
+                          <TableCell>{asset.license}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
