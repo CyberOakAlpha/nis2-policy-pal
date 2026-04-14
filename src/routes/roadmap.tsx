@@ -113,7 +113,7 @@ function RoadmapPage() {
                             variant="outline"
                             size="sm"
                             className="mt-2"
-                            onClick={() => setShowAssetTemplate(!showAssetTemplate)}
+                            onClick={() => setShowAssetTemplate(true)}
                           >
                             <Monitor className="mr-1 h-4 w-4" />
                             {t.exampleAssets}
@@ -128,13 +128,12 @@ function RoadmapPage() {
           </Accordion>
         </div>
 
-        {showAssetTemplate && (
-          <Card className="animate-in fade-in slide-in-from-top-2">
-            <CardContent className="p-5 space-y-4">
-              <div className="text-center space-y-1">
-                <h2 className="text-xl font-bold text-foreground">{t.assetTemplateTitle}</h2>
-                <p className="text-sm text-muted-foreground">{t.assetTemplateSubtitle}</p>
-              </div>
+        <Dialog open={showAssetTemplate} onOpenChange={setShowAssetTemplate}>
+          <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{t.assetTemplateTitle}</DialogTitle>
+              <p className="text-sm text-muted-foreground">{t.assetTemplateSubtitle}</p>
+            </DialogHeader>
 
               <Tabs defaultValue="hardware">
                 <TabsList className="w-full">
