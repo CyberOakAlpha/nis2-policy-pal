@@ -137,6 +137,15 @@ export function PolicyForm() {
           <LanguageSwitcher />
         </div>
 
+        <nav className="flex items-center gap-2 rounded-md border bg-card p-1.5 shadow-sm">
+          <Link to="/roadmap">
+            <Button variant="ghost" size="sm" className="gap-1.5 text-sm">
+              <Map className="h-4 w-4" />
+              {t.goToRoadmap}
+            </Button>
+          </Link>
+        </nav>
+
         <Card>
           <CardHeader>
             <CardTitle className="text-xl font-bold text-foreground">
@@ -247,12 +256,6 @@ export function PolicyForm() {
 
             {/* Roadmap link & Bundle download */}
             <div className="flex flex-col gap-2 pt-2">
-              <Link to="/roadmap">
-                <Button variant="outline" className="w-full" size="sm">
-                  <Map className="mr-2 h-4 w-4" />
-                  {t.goToRoadmap}
-                </Button>
-              </Link>
               <Button
                 variant="secondary"
                 className="w-full"
