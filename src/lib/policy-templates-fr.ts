@@ -3,7 +3,7 @@ import type { PolicyFormData, PolicySection } from "./policy-templates";
 export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
   const generators: Record<string, (d: PolicyFormData) => PolicySection[]> = {
     access: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique d'accès dans le cadre de la directive NIS2. Ce document décrit comment l'accès aux systèmes, réseaux et informations est accordé, géré et surveillé.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique d'accès dans le cadre de la directive NIS2. Ce document décrit comment l'accès aux systèmes, réseaux et informations est accordé, géré et surveillé.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique aux employés, parties externes et fournisseurs ayant accès aux systèmes ou données de ${d.companyName}. Elle couvre l'accès physique et numérique.` },
       { heading: "3. Principes fondamentaux", content: "1. Les utilisateurs ne reçoivent que les droits nécessaires à leur fonction.\n2. L'accès à l'information n'est accordé que pour les besoins du travail.\n3. Les tâches critiques sont réparties entre plusieurs personnes.\n4. Chaque utilisateur doit s'identifier et s'authentifier avant d'obtenir l'accès.\n5. Les droits d'accès sont périodiquement révisés et ajustés." },
       { heading: "4. Gestion des utilisateurs", content: "", subSections: [
@@ -18,7 +18,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Révision", content: "Cette politique est révisée au moins annuellement et mise à jour lorsque l'organisation, les risques ou les exigences légales changent." },
     ],
     network: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique d'accès réseau dans le cadre de la directive NIS2. Ce document décrit comment l'accès au réseau est géré, sécurisé et surveillé.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique d'accès réseau dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les réseaux, systèmes et appareils connectés à l'infrastructure de ${d.companyName}.` },
       { heading: "3. Segmentation du réseau", content: `Le réseau de ${d.companyName} est divisé en zones selon la sensibilité et la fonction. Le trafic entre zones est contrôlé via des pare-feu et des listes d'accès.` },
       { heading: "4. Réseaux sans fil", content: "", subSections: [
@@ -33,7 +33,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Révision", content: "Cette politique est révisée au moins annuellement et mise à jour lors de changements dans l'infrastructure réseau, les menaces ou la législation." },
     ],
     incident: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de réponse aux incidents dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de réponse aux incidents dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les employés, systèmes et processus de ${d.companyName}.` },
       { heading: "3. Définition d'un incident", content: "Un incident de sécurité est tout événement mettant en danger la confidentialité, l'intégrité ou la disponibilité des informations. Exemples :\n1. Accès non autorisé.\n2. Infections par malware ou ransomware.\n3. Fuites de données.\n4. Attaques par déni de service.\n5. Attaques de phishing avec impact." },
       { heading: "4. Classification des incidents", content: "", subSections: [
@@ -52,7 +52,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Révision", content: "Cette politique est révisée au moins annuellement et après chaque incident significatif." },
     ],
     bcp: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi ce plan de continuité d'activité dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi ce plan de continuité d'activité dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Ce plan s'applique à tous les processus critiques, systèmes et services de ${d.companyName}.` },
       { heading: "3. Processus et systèmes critiques", content: `${d.companyName} identifie :\n1. Les processus métier essentiels.\n2. Les systèmes IT supportant ces processus.\n3. Les dépendances envers les fournisseurs.\n4. Les données indispensables.` },
       { heading: "4. Analyse des risques", content: "", subSections: [
@@ -70,7 +70,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Révision", content: "Ce plan est révisé au moins annuellement." },
     ],
     risk: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des risques dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des risques dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les systèmes d'information, réseaux et données de ${d.companyName}.` },
       { heading: "3. Processus de gestion des risques", content: "", subSections: [
         { heading: "3.1 Identification des risques", content: `${d.companyName} identifie systématiquement les risques par :\n- Inventaire des actifs critiques.\n- Analyse des menaces et vulnérabilités.\n- Évaluation des facteurs internes et externes.` },
@@ -84,7 +84,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
     ],
     "supply-chain": (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des fournisseurs dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des fournisseurs dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les fournisseurs et partenaires ayant accès aux systèmes ou données de ${d.companyName}.` },
       { heading: "3. Sélection des fournisseurs", content: "Critères :\n1. Niveau de cybersécurité.\n2. Certifications (ISO 27001).\n3. Références.\n4. Volonté de conformité." },
       { heading: "4. Exigences contractuelles", content: "", subSections: [
@@ -98,7 +98,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Révision", content: "Cette politique est révisée au moins annuellement." },
     ],
     crypto: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de cryptographie dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de cryptographie dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les systèmes et canaux de communication de ${d.companyName} traitant des données sensibles.` },
       { heading: "3. Principes fondamentaux", content: "1. Les données confidentielles sont chiffrées au repos et en transit.\n2. Seuls des algorithmes reconnus et actuels sont utilisés.\n3. La gestion des clés est séparée du stockage des données.\n4. Les mesures cryptographiques sont alignées sur le niveau de classification." },
       { heading: "4. Chiffrement en transit", content: "", subSections: [
@@ -112,7 +112,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
     ],
     awareness: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de sensibilisation et formation dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de sensibilisation et formation dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les employés de ${d.companyName}.` },
       { heading: "3. Objectifs", content: "1. Sensibiliser aux cybermenaces.\n2. Enseigner les compétences pour un travail sécurisé.\n3. Créer une culture de sécurité.\n4. Respecter les exigences NIS2." },
       { heading: "4. Programme de sensibilisation", content: "", subSections: [
@@ -126,7 +126,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
     ],
     vulnerability: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des vulnérabilités dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des vulnérabilités dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les systèmes IT et logiciels de ${d.companyName}.` },
       { heading: "3. Identification des vulnérabilités", content: `${d.companyName} identifie les vulnérabilités par :\n1. Analyses régulières.\n2. Surveillance des avis de sécurité.\n3. Tests de pénétration annuels.\n4. Évaluation des renseignements sur les menaces.` },
       { heading: "4. Évaluation et priorisation", content: "", subSections: [
@@ -139,7 +139,7 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
     ],
     backup: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de sauvegarde et récupération dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de sauvegarde et récupération dans le cadre de la directive NIS2.\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
       { heading: "2. Champ d'application", content: `Cette politique s'applique à toutes les données et systèmes essentiels de ${d.companyName}.` },
       { heading: "3. Stratégie de sauvegarde", content: "", subSections: [
         { heading: "3.1 Types de sauvegarde", content: "- Sauvegarde complète : copie périodique de toutes les données.\n- Sauvegarde incrémentielle : copie quotidienne des modifications.\n- Sauvegarde différentielle : modifications depuis la dernière sauvegarde complète." },
@@ -153,6 +153,64 @@ export function generateFrenchSections(data: PolicyFormData): PolicySection[] {
         { heading: "6.2 Tests de récupération", content: "Tests trimestriels incluant :\n- Test complet de récupération.\n- Vérification de l'intégrité.\n- Mesure du temps de récupération.\n- Documentation des résultats." },
       ]},
       { heading: "7. Surveillance et rapportage", content: "1. Surveillance quotidienne.\n2. Investigation immédiate des erreurs.\n3. Rapport mensuel à la direction.\n4. Évaluation annuelle de la stratégie." },
+      { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
+    ],
+    // ===== NEW POLICY TYPES =====
+    "asset-management": (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des actifs dans le cadre de la directive NIS2 (ISO 27001 A.8). Ce document décrit comment tous les actifs TIC sont identifiés, classifiés, gérés et protégés.\n\nCe document a été rédigé par ${d.author}, propriétaire : ${d.owner || d.author}. Approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
+      { heading: "2. Champ d'application", content: `Cette politique s'applique à tout le matériel, logiciel, données et équipements réseau de ${d.companyName}, y compris les ressources cloud, appareils mobiles et BYOD.` },
+      { heading: "3. Inventaire des actifs", content: "", subSections: [
+        { heading: "3.1 Enregistrement", content: `Tous les actifs TIC de ${d.companyName} sont enregistrés dans un registre central contenant :\n- Identifiant unique et nom.\n- Type (matériel, logiciel, données, réseau).\n- Propriétaire et responsable.\n- Emplacement et département.\n- Criticité et classification.\n- Date d'achat et de garantie.` },
+        { heading: "3.2 Classification", content: "Les actifs sont classifiés par criticité :\n- Critique : panne impacte directement la continuité.\n- Élevé : panne perturbe les processus importants.\n- Moyen : impact limité.\n- Faible : pas d'impact métier direct." },
+        { heading: "3.3 Propriété", content: "Chaque actif a un propriétaire désigné responsable de :\n- La classification et l'étiquetage.\n- L'application des mesures de sécurité.\n- La revue périodique.\n- Le signalement des changements." },
+      ]},
+      { heading: "4. Gestion du cycle de vie", content: "1. Acquisition : approbation selon le processus d'achat.\n2. Installation : configuration selon les normes de sécurité.\n3. Utilisation : surveillance et maintenance.\n4. Modification : documentation des changements.\n5. Mise hors service : suppression sécurisée des données." },
+      { heading: "5. Actifs matériels", content: `${d.companyName} enregistre tous les appareils physiques :\n1. Serveurs, postes de travail, ordinateurs portables.\n2. Équipements réseau (switches, routeurs, pare-feu).\n3. Dispositifs de stockage et supports de sauvegarde.\n4. Imprimantes et scanners.\n5. Appareils mobiles et IoT.` },
+      { heading: "6. Actifs logiciels", content: "1. Tous les logiciels sont enregistrés avec version, licence et fournisseur.\n2. Seuls les logiciels approuvés peuvent être installés.\n3. La conformité des licences est vérifiée périodiquement.\n4. Les logiciels en fin de vie sont remplacés.\n5. Les applications SaaS et cloud sont incluses." },
+      { heading: "7. Surveillance et rapportage", content: "1. Le registre est mis à jour au moins mensuellement.\n2. Rapport trimestriel sur l'état des actifs.\n3. Audit annuel complet.\n4. Détection automatique des appareils inconnus." },
+      { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
+    ],
+    password: (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de mots de passe dans le cadre de la directive NIS2 (ISO 27001 A.9.4).\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
+      { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les employés, travailleurs externes et fournisseurs ayant accès aux systèmes de ${d.companyName}.` },
+      { heading: "3. Exigences des mots de passe", content: "", subSections: [
+        { heading: "3.1 Complexité", content: "Les mots de passe doivent :\n- Comporter au moins 14 caractères.\n- Contenir majuscule, minuscule, chiffre et caractère spécial.\n- Ne pas contenir d'informations personnelles.\n- Ne pas figurer dans des listes de mots de passe divulgués." },
+        { heading: "3.2 Validité", content: "1. Expiration après 90 jours maximum.\n2. Les 12 derniers mots de passe ne peuvent être réutilisés.\n3. Verrouillage après 5 tentatives échouées.\n4. Les mots de passe temporaires doivent être changés à la première connexion." },
+        { heading: "3.3 Stockage", content: "1. Jamais stockés en clair.\n2. Algorithmes de hachage forts (bcrypt, Argon2).\n3. Ne pas partager par e-mail ou chat.\n4. Utilisation d'un gestionnaire de mots de passe recommandée." },
+      ]},
+      { heading: "4. Authentification multifacteur (MFA)", content: `${d.companyName} exige la MFA pour :\n1. Tous les comptes avec accès aux systèmes critiques.\n2. Accès VPN et à distance.\n3. Comptes administrateurs.\n4. Services cloud et e-mail.\n5. Tous les utilisateurs si possible.` },
+      { heading: "5. Comptes administrateurs", content: "1. Mots de passe distincts et forts.\n2. Mots de passe par défaut changés immédiatement.\n3. Comptes partagés interdits.\n4. Privileged Access Management (PAM) si possible." },
+      { heading: "6. Responsabilités", content: `1. Employés : garder les mots de passe confidentiels.\n2. Département IT : gérer la politique et accompagner.\n3. ${d.approvedBy} : responsable final.` },
+      { heading: "7. Sensibilisation", content: "1. Formation à l'utilisation sécurisée des mots de passe.\n2. Communication périodique sur l'hygiène des mots de passe.\n3. Simulations de phishing." },
+      { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
+    ],
+    cybersecurity: (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique globale de cybersécurité dans le cadre de la directive NIS2. Ce document décrit le cadre de protection des informations, systèmes et réseaux.\n\nCe document a été rédigé par ${d.author}, propriétaire : ${d.owner || d.author}. Approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
+      { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les systèmes d'information, réseaux, données et employés de ${d.companyName}. Elle constitue le cadre global dans lequel fonctionnent tous les documents de politique spécifiques.` },
+      { heading: "3. Principes de sécurité", content: "1. Confidentialité : l'information n'est accessible qu'aux personnes autorisées.\n2. Intégrité : l'information est exacte et non modifiée.\n3. Disponibilité : les systèmes sont disponibles quand nécessaire.\n4. Défense en profondeur : plusieurs couches de sécurité.\n5. Moindre privilège : droits d'accès minimaux." },
+      { heading: "4. Gouvernance", content: "", subSections: [
+        { heading: "4.1 Organisation", content: `${d.companyName} désigne :\n- RSSI / Responsable sécurité : programme cybersécurité.\n- Responsable IT : gestion quotidienne.\n- Direction : responsable final des risques.\n- Tous les employés : conformité.` },
+        { heading: "4.2 Cadre de politiques", content: "Cette politique est soutenue par :\n- Politique d'accès\n- Politique de sécurité réseau\n- Politique de réponse aux incidents\n- Politique de mots de passe\n- Politique de gestion des actifs\n- Politique de sauvegarde\n- Gestion des vulnérabilités et correctifs\n- Politique de cryptographie\n- Politique de gestion des fournisseurs\n- Politique de sensibilisation" },
+      ]},
+      { heading: "5. Gestion des risques", content: `${d.companyName} effectue des évaluations périodiques des risques incluant :\n1. Identification des actifs et processus critiques.\n2. Évaluation des menaces et vulnérabilités.\n3. Mise en œuvre de mesures.\n4. Surveillance et évaluation continues.` },
+      { heading: "6. Mesures techniques", content: "1. Pare-feu et sécurité réseau.\n2. Anti-malware et EDR.\n3. Chiffrement des données.\n4. Gestion des correctifs.\n5. Journalisation et SIEM.\n6. Sauvegarde et reprise après sinistre." },
+      { heading: "7. Conformité et rapportage", content: `1. ${d.companyName} respecte la directive NIS2.\n2. Audit annuel de cybersécurité.\n3. Rapport trimestriel à la direction.\n4. Obligation de signalement (24h/72h NIS2).` },
+      { heading: "8. Amélioration continue", content: "1. Revue annuelle de tous les documents.\n2. Leçons tirées des incidents.\n3. Benchmarking (ISO 27001, NIS2).\n4. Adaptation aux nouvelles menaces." },
+      { heading: "9. Révision", content: "Cette politique est révisée au moins annuellement." },
+    ],
+    "patch-management": (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} a établi cette politique de gestion des correctifs dans le cadre de la directive NIS2 (ISO 27001 A.12.6).\n\nCe document a été rédigé par ${d.author} et approuvé par ${d.approvedBy} le ${d.approvalDate || d.date}.` },
+      { heading: "2. Champ d'application", content: `Cette politique s'applique à tous les systèmes d'exploitation, applications, firmware et équipements réseau de ${d.companyName}.` },
+      { heading: "3. Processus de correctifs", content: "", subSections: [
+        { heading: "3.1 Identification", content: `${d.companyName} surveille en continu les correctifs disponibles via :\n- Notifications des fournisseurs.\n- Alertes CERT et bases CVE.\n- Outils de scan automatisés.\n- Tests de pénétration.` },
+        { heading: "3.2 Priorisation", content: "Priorisation basée sur :\n- Score CVSS et gravité.\n- Criticité du système.\n- Exploits actifs disponibles.\n- Impact métier.\n\nDélais :\n- Critique : 24-48 heures.\n- Élevé : 7 jours.\n- Moyen : 30 jours.\n- Faible : prochain cycle." },
+        { heading: "3.3 Tests", content: "1. Tests en environnement de test.\n2. Vérification de compatibilité.\n3. Procédures de rollback préparées.\n4. Processus accéléré pour les correctifs critiques." },
+        { heading: "3.4 Déploiement", content: "1. Déploiement par phases.\n2. De préférence hors heures de bureau.\n3. Vérification de l'installation.\n4. Mise à jour de la documentation." },
+      ]},
+      { heading: "4. Mises à jour automatiques", content: "1. Postes de travail : mises à jour automatiques activées.\n2. Serveurs : cycles contrôlés via gestion des changements.\n3. Équipements réseau : mises à jour firmware planifiées.\n4. Appareils mobiles : gestion via MDM." },
+      { heading: "5. Exceptions", content: `Les exceptions sont enregistrées avec :\n- Raison du report.\n- Mesures compensatoires.\n- Date d'installation prévue.\n- Approbation de ${d.approvedBy}.` },
+      { heading: "6. Surveillance et rapportage", content: "1. Aperçu hebdomadaire de l'état des correctifs.\n2. Rapport mensuel de conformité.\n3. Tableau de bord des correctifs critiques.\n4. Rapport trimestriel à la direction." },
+      { heading: "7. Rôles et responsabilités", content: `1. Administrateurs IT : exécution.\n2. Responsable IT : coordination.\n3. Propriétaires de systèmes : approbation.\n4. ${d.approvedBy} : responsable final.` },
       { heading: "8. Révision", content: "Cette politique est révisée au moins annuellement." },
     ],
   };

@@ -21,9 +21,12 @@ export interface Translations {
   companyNamePlaceholder: string;
   author: string;
   authorPlaceholder: string;
+  owner: string;
+  ownerPlaceholder: string;
   approvedBy: string;
   approvedByPlaceholder: string;
   date: string;
+  approvalDate: string;
   version: string;
   policyType: string;
 
@@ -43,8 +46,10 @@ export interface Translations {
   pdfTitle: string;
   pdfVersion: string;
   pdfAuthor: string;
+  pdfOwner: string;
   pdfApprovedBy: string;
   pdfDate: string;
+  pdfApprovalDate: string;
   pdfClassification: string;
   pdfClassificationValue: string;
   pdfStatus: string;
@@ -94,9 +99,12 @@ const nl: Translations = {
   companyNamePlaceholder: "bijv. Acme bv",
   author: "Auteur",
   authorPlaceholder: "Naam auteur",
+  owner: "Eigenaar",
+  ownerPlaceholder: "Naam eigenaar document",
   approvedBy: "Goedgekeurd door",
   approvedByPlaceholder: "Naam goedkeurder",
-  date: "Datum",
+  date: "Aanmaakdatum",
+  approvalDate: "Goedkeuringsdatum",
   version: "Versie",
   policyType: "Type beleid",
 
@@ -104,7 +112,7 @@ const nl: Translations = {
   previewDescription: "Pas de tekst aan waar nodig en sla op als PDF.",
   savePdf: "Opslaan als PDF",
   generatingPdf: "PDF genereren...",
-  downloadAll: "Download alle 10 policies",
+  downloadAll: "Download alle 14 policies",
   downloadingAll: "Bundel genereren...",
 
   policyNames: {
@@ -118,14 +126,20 @@ const nl: Translations = {
     awareness: "Bewustmaking en opleiding",
     vulnerability: "Kwetsbaarheidsbeheer",
     backup: "Back-up en herstel",
+    "asset-management": "Asset management",
+    password: "Wachtwoordbeleid",
+    cybersecurity: "Cybersecuritybeleid",
+    "patch-management": "Patchbeheer",
   },
 
   pdfDocControl: "Documentbeheer",
   pdfTitle: "Titel",
   pdfVersion: "Versie",
   pdfAuthor: "Auteur",
+  pdfOwner: "Eigenaar",
   pdfApprovedBy: "Goedgekeurd door",
-  pdfDate: "Datum",
+  pdfDate: "Aanmaakdatum",
+  pdfApprovalDate: "Goedkeuringsdatum",
   pdfClassification: "Classificatie",
   pdfClassificationValue: "Vertrouwelijk",
   pdfStatus: "Status",
@@ -190,9 +204,12 @@ const en: Translations = {
   companyNamePlaceholder: "e.g. Acme Ltd",
   author: "Author",
   authorPlaceholder: "Author name",
+  owner: "Owner",
+  ownerPlaceholder: "Document owner name",
   approvedBy: "Approved by",
   approvedByPlaceholder: "Approver name",
-  date: "Date",
+  date: "Date created",
+  approvalDate: "Approval date",
   version: "Version",
   policyType: "Policy type",
 
@@ -200,7 +217,7 @@ const en: Translations = {
   previewDescription: "Edit the text where needed, then save as PDF.",
   savePdf: "Save as PDF",
   generatingPdf: "Generating PDF...",
-  downloadAll: "Download all 10 policies",
+  downloadAll: "Download all 14 policies",
   downloadingAll: "Generating bundle...",
 
   policyNames: {
@@ -214,14 +231,20 @@ const en: Translations = {
     awareness: "Awareness & Training",
     vulnerability: "Vulnerability Management",
     backup: "Backup & Recovery",
+    "asset-management": "Asset Management",
+    password: "Password Policy",
+    cybersecurity: "Cybersecurity Policy",
+    "patch-management": "Patch Management",
   },
 
   pdfDocControl: "Document Control",
   pdfTitle: "Title",
   pdfVersion: "Version",
   pdfAuthor: "Author",
+  pdfOwner: "Owner",
   pdfApprovedBy: "Approved by",
-  pdfDate: "Date",
+  pdfDate: "Date created",
+  pdfApprovalDate: "Approval date",
   pdfClassification: "Classification",
   pdfClassificationValue: "Confidential",
   pdfStatus: "Status",
@@ -286,9 +309,12 @@ const fr: Translations = {
   companyNamePlaceholder: "ex. Acme SA",
   author: "Auteur",
   authorPlaceholder: "Nom de l'auteur",
+  owner: "Propriétaire",
+  ownerPlaceholder: "Nom du propriétaire",
   approvedBy: "Approuvé par",
   approvedByPlaceholder: "Nom de l'approbateur",
-  date: "Date",
+  date: "Date de création",
+  approvalDate: "Date d'approbation",
   version: "Version",
   policyType: "Type de politique",
 
@@ -296,7 +322,7 @@ const fr: Translations = {
   previewDescription: "Modifiez le texte si nécessaire, puis enregistrez en PDF.",
   savePdf: "Enregistrer en PDF",
   generatingPdf: "Génération du PDF...",
-  downloadAll: "Télécharger les 10 politiques",
+  downloadAll: "Télécharger les 14 politiques",
   downloadingAll: "Génération du lot...",
 
   policyNames: {
@@ -310,14 +336,20 @@ const fr: Translations = {
     awareness: "Sensibilisation et formation",
     vulnerability: "Gestion des vulnérabilités",
     backup: "Sauvegarde et récupération",
+    "asset-management": "Gestion des actifs",
+    password: "Politique de mots de passe",
+    cybersecurity: "Politique de cybersécurité",
+    "patch-management": "Gestion des correctifs",
   },
 
   pdfDocControl: "Contrôle du document",
   pdfTitle: "Titre",
   pdfVersion: "Version",
   pdfAuthor: "Auteur",
+  pdfOwner: "Propriétaire",
   pdfApprovedBy: "Approuvé par",
-  pdfDate: "Date",
+  pdfDate: "Date de création",
+  pdfApprovalDate: "Date d'approbation",
   pdfClassification: "Classification",
   pdfClassificationValue: "Confidentiel",
   pdfStatus: "Statut",

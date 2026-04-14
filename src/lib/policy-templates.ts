@@ -8,13 +8,19 @@ export type PolicyType =
   | "crypto"
   | "awareness"
   | "vulnerability"
-  | "backup";
+  | "backup"
+  | "asset-management"
+  | "password"
+  | "cybersecurity"
+  | "patch-management";
 
 export interface PolicyFormData {
   companyName: string;
   author: string;
+  owner: string;
   approvedBy: string;
   date: string;
+  approvalDate: string;
   version: string;
   policyType: PolicyType;
 }
@@ -37,6 +43,10 @@ export function getPolicyTitle(type: PolicyType): string {
     awareness: "Beleid voor bewustmaking en opleiding",
     vulnerability: "Beleid voor kwetsbaarheidsbeheer",
     backup: "Beleid voor back-up en herstel",
+    "asset-management": "Beleid voor asset management",
+    password: "Wachtwoordbeleid",
+    cybersecurity: "Cybersecuritybeleid",
+    "patch-management": "Beleid voor patchbeheer",
   };
   return titles[type];
 }
@@ -53,6 +63,10 @@ export function getPolicySlug(type: PolicyType): string {
     awareness: "bewustmaking",
     vulnerability: "kwetsbaarheidsbeheer",
     backup: "backup_herstel",
+    "asset-management": "asset_management",
+    password: "wachtwoordbeleid",
+    cybersecurity: "cybersecurity",
+    "patch-management": "patchbeheer",
   };
   return slugs[type];
 }
@@ -69,6 +83,10 @@ export function generatePolicySections(data: PolicyFormData): PolicySection[] {
     awareness: getAwarenessPolicySections,
     vulnerability: getVulnerabilityPolicySections,
     backup: getBackupPolicySections,
+    "asset-management": getAssetManagementPolicySections,
+    password: getPasswordPolicySections,
+    cybersecurity: getCybersecurityPolicySections,
+    "patch-management": getPatchManagementPolicySections,
   };
   return generators[data.policyType](data);
 }
@@ -77,7 +95,7 @@ function getAccessPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit toegangsbeleid opgesteld in het kader van de NIS2-richtlijn. In dit document staat hoe toegang tot systemen, netwerken en informatie wordt toegekend, beheerd en opgevolgd.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit toegangsbeleid opgesteld in het kader van de NIS2-richtlijn. In dit document staat hoe toegang tot systemen, netwerken en informatie wordt toegekend, beheerd en opgevolgd.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -138,7 +156,7 @@ function getNetworkPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit netwerktoegangsbeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe netwerktoegang wordt beheerd, beveiligd en gecontroleerd.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit netwerktoegangsbeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe netwerktoegang wordt beheerd, beveiligd en gecontroleerd.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -199,7 +217,7 @@ function getIncidentPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit incidentresponsbeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe cybersecurity-incidenten worden gedetecteerd, gemeld, beheerd en geëvalueerd.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit incidentresponsbeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe cybersecurity-incidenten worden gedetecteerd, gemeld, beheerd en geëvalueerd.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -268,7 +286,7 @@ function getBcpPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit bedrijfscontinuïteitsplan opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe de organisatie blijft functioneren tijdens en na een verstoring.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit bedrijfscontinuïteitsplan opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe de organisatie blijft functioneren tijdens en na een verstoring.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -333,7 +351,7 @@ function getRiskPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit risicobeheerbeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe cyberrisico's worden geïdentificeerd, beoordeeld, behandeld en gemonitord.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit risicobeheerbeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe cyberrisico's worden geïdentificeerd, beoordeeld, behandeld en gemonitord.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -384,7 +402,7 @@ function getSupplyChainPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit beleid voor leveranciersbeheer opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe de organisatie de cybersecurityrisico's in de toeleveringsketen beheert.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit beleid voor leveranciersbeheer opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe de organisatie de cybersecurityrisico's in de toeleveringsketen beheert.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -435,7 +453,7 @@ function getCryptoPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit beleid voor cryptografie en encryptie opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe cryptografische maatregelen worden ingezet om gegevens te beschermen.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit beleid voor cryptografie en encryptie opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe cryptografische maatregelen worden ingezet om gegevens te beschermen.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -486,7 +504,7 @@ function getAwarenessPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit beleid voor bewustmaking en opleiding opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe medewerkers worden opgeleid en bewust gemaakt van cybersecurityrisico's.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit beleid voor bewustmaking en opleiding opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe medewerkers worden opgeleid en bewust gemaakt van cybersecurityrisico's.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -537,7 +555,7 @@ function getVulnerabilityPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit beleid voor kwetsbaarheidsbeheer opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe kwetsbaarheden in systemen en software worden geïdentificeerd, beoordeeld en verholpen.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit beleid voor kwetsbaarheidsbeheer opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe kwetsbaarheden in systemen en software worden geïdentificeerd, beoordeeld en verholpen.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -584,7 +602,7 @@ function getBackupPolicySections(data: PolicyFormData): PolicySection[] {
   return [
     {
       heading: "1. Inleiding",
-      content: `${data.companyName} heeft dit beleid voor back-up en herstel opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe gegevens worden geback-upt, opgeslagen en hersteld.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.date}.`,
+      content: `${data.companyName} heeft dit beleid voor back-up en herstel opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft hoe gegevens worden geback-upt, opgeslagen en hersteld.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
     },
     {
       heading: "2. Toepassingsgebied",
@@ -637,6 +655,216 @@ function getBackupPolicySections(data: PolicyFormData): PolicySection[] {
     {
       heading: "8. Herziening",
       content: "Dit beleid wordt minstens jaarlijks herzien en aangepast bij wijzigingen in de infrastructuur, gegevensbehoeften of wettelijke vereisten.",
+    },
+  ];
+}
+
+// ===== NEW POLICY TYPES =====
+
+function getAssetManagementPolicySections(data: PolicyFormData): PolicySection[] {
+  return [
+    {
+      heading: "1. Inleiding",
+      content: `${data.companyName} heeft dit beleid voor asset management opgesteld in het kader van de NIS2-richtlijn (ISO 27001 A.8). Dit document beschrijft hoe alle ICT-assets worden geïdentificeerd, geclassificeerd, beheerd en beschermd.\n\nDit document werd opgesteld door ${data.author}, eigenaar is ${data.owner || data.author}. Goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
+    },
+    {
+      heading: "2. Toepassingsgebied",
+      content: `Dit beleid geldt voor alle hardware, software, gegevens en netwerkapparatuur van ${data.companyName}, inclusief cloudresources, mobiele apparaten en BYOD-apparaten.`,
+    },
+    {
+      heading: "3. Asset inventarisatie",
+      content: "",
+      subSections: [
+        {
+          heading: "3.1 Registratie",
+          content: `Alle ICT-assets van ${data.companyName} worden geregistreerd in een centraal assetregister met minimaal:\n- Uniek asset-ID en naam.\n- Type (hardware, software, data, netwerk).\n- Eigenaar en verantwoordelijke.\n- Locatie en afdeling.\n- Kriticiteit en classificatie.\n- Aanschaf- en garantiedatum.`,
+        },
+        {
+          heading: "3.2 Classificatie",
+          content: "Assets worden geclassificeerd op basis van kriticiteit:\n- Kritiek: uitval heeft directe impact op bedrijfscontinuïteit.\n- Hoog: uitval verstoort belangrijke processen.\n- Middel: uitval heeft beperkte impact.\n- Laag: geen directe bedrijfsimpact.",
+        },
+        {
+          heading: "3.3 Eigenaarschap",
+          content: "Elke asset heeft een aangewezen eigenaar die verantwoordelijk is voor:\n- Juiste classificatie en labeling.\n- Toepassing van beveiligingsmaatregelen.\n- Periodieke review van de asset.\n- Melding bij wijzigingen of uitfasering.",
+        },
+      ],
+    },
+    {
+      heading: "4. Levenscyclusbeheer",
+      content: "1. Aanschaf: goedkeuring conform het inkoopproces.\n2. Installatie: configuratie volgens beveiligingsstandaarden.\n3. Gebruik: monitoring en onderhoud.\n4. Wijziging: documentatie van aanpassingen.\n5. Uitfasering: veilige verwijdering van gegevens en fysieke vernietiging indien nodig.",
+    },
+    {
+      heading: "5. Hardware-assets",
+      content: `${data.companyName} registreert alle fysieke apparaten:\n1. Servers, workstations, laptops en tablets.\n2. Netwerkapparatuur (switches, routers, firewalls, access points).\n3. Opslagapparatuur en back-upmedia.\n4. Printers, scanners en multifunctionele apparaten.\n5. Mobiele apparaten en IoT-devices.`,
+    },
+    {
+      heading: "6. Software-assets",
+      content: "1. Alle software wordt geregistreerd met versie, licentie en leverancier.\n2. Alleen goedgekeurde software mag worden geïnstalleerd.\n3. Licentienaleving wordt periodiek gecontroleerd.\n4. End-of-life software wordt tijdig vervangen.\n5. SaaS- en cloudapplicaties worden opgenomen in het register.",
+    },
+    {
+      heading: "7. Monitoring en rapportage",
+      content: "1. Het assetregister wordt minimaal maandelijks bijgewerkt.\n2. Kwartaalrapportage over de assetstatus aan het management.\n3. Jaarlijkse volledige asset-audit.\n4. Automatische detectie van onbekende apparaten op het netwerk.",
+    },
+    {
+      heading: "8. Herziening",
+      content: "Dit beleid wordt minstens jaarlijks herzien en aangepast bij wijzigingen in de organisatie, infrastructuur of wettelijke vereisten.",
+    },
+  ];
+}
+
+function getPasswordPolicySections(data: PolicyFormData): PolicySection[] {
+  return [
+    {
+      heading: "1. Inleiding",
+      content: `${data.companyName} heeft dit wachtwoordbeleid opgesteld in het kader van de NIS2-richtlijn (ISO 27001 A.9.4). Dit document beschrijft de eisen voor het aanmaken, beheren en beschermen van wachtwoorden.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
+    },
+    {
+      heading: "2. Toepassingsgebied",
+      content: `Dit beleid geldt voor alle medewerkers, externe medewerkers en leveranciers die toegang hebben tot systemen of gegevens van ${data.companyName}.`,
+    },
+    {
+      heading: "3. Wachtwoordeisen",
+      content: "",
+      subSections: [
+        {
+          heading: "3.1 Complexiteit",
+          content: "Wachtwoorden moeten voldoen aan de volgende eisen:\n- Minimaal 14 tekens lang.\n- Bevatten minstens één hoofdletter, één kleine letter, één cijfer en één speciaal teken.\n- Mogen geen persoonlijke informatie bevatten (naam, geboortedatum).\n- Mogen niet voorkomen in bekende gelekte wachtwoordlijsten.",
+        },
+        {
+          heading: "3.2 Geldigheid",
+          content: "1. Wachtwoorden verlopen na maximaal 90 dagen.\n2. De laatste 12 wachtwoorden mogen niet worden hergebruikt.\n3. Accounts worden geblokkeerd na 5 mislukte inlogpogingen.\n4. Tijdelijke wachtwoorden moeten bij eerste aanmelding worden gewijzigd.",
+        },
+        {
+          heading: "3.3 Opslag",
+          content: "1. Wachtwoorden worden nooit in platte tekst opgeslagen.\n2. Er wordt gebruik gemaakt van sterke hashing-algoritmen (bcrypt, Argon2).\n3. Wachtwoorden worden niet gedeeld via e-mail of chat.\n4. Het gebruik van een goedgekeurde wachtwoordmanager wordt aanbevolen.",
+        },
+      ],
+    },
+    {
+      heading: "4. Multifactorauthenticatie (MFA)",
+      content: `${data.companyName} vereist MFA voor:\n1. Alle accounts met toegang tot kritieke systemen.\n2. VPN- en externe toegang.\n3. Beheerdersaccounts en privileged accounts.\n4. Clouddiensten en e-mail.\n5. Waar mogelijk wordt MFA voor alle gebruikers ingeschakeld.`,
+    },
+    {
+      heading: "5. Beheerdersaccounts",
+      content: "1. Beheerdersaccounts gebruiken afzonderlijke, sterke wachtwoorden.\n2. Standaardwachtwoorden van systemen worden onmiddellijk gewijzigd.\n3. Gedeelde accounts zijn verboden; elke beheerder heeft een persoonlijk account.\n4. Privileged Access Management (PAM) wordt waar mogelijk ingezet.",
+    },
+    {
+      heading: "6. Verantwoordelijkheden",
+      content: `1. Medewerkers: houden wachtwoorden vertrouwelijk en melden verdacht gebruik.\n2. IT-afdeling: beheert het wachtwoordbeleid en ondersteunt bij naleving.\n3. ${data.approvedBy}: eindverantwoordelijke voor het wachtwoordbeleid.`,
+    },
+    {
+      heading: "7. Bewustmaking",
+      content: "1. Medewerkers worden getraind in veilig wachtwoordgebruik.\n2. Periodieke communicatie over wachtwoordhygiëne.\n3. Phishing-simulaties om bewustzijn te testen.",
+    },
+    {
+      heading: "8. Herziening",
+      content: "Dit beleid wordt minstens jaarlijks herzien en aangepast bij wijzigingen in dreigingen, technologie of wettelijke vereisten.",
+    },
+  ];
+}
+
+function getCybersecurityPolicySections(data: PolicyFormData): PolicySection[] {
+  return [
+    {
+      heading: "1. Inleiding",
+      content: `${data.companyName} heeft dit overkoepelend cybersecuritybeleid opgesteld in het kader van de NIS2-richtlijn. Dit document beschrijft het kader voor de bescherming van informatie, systemen en netwerken tegen cyberdreigingen.\n\nDit document werd opgesteld door ${data.author}, eigenaar is ${data.owner || data.author}. Goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
+    },
+    {
+      heading: "2. Toepassingsgebied",
+      content: `Dit beleid geldt voor alle informatiesystemen, netwerken, gegevens en medewerkers van ${data.companyName}. Het vormt het overkoepelend kader waarbinnen alle specifieke beveiligingsbeleidsdocumenten functioneren.`,
+    },
+    {
+      heading: "3. Beveiligingsprincipes",
+      content: "1. Vertrouwelijkheid: informatie is alleen toegankelijk voor geautoriseerde personen.\n2. Integriteit: informatie en systemen zijn accuraat en ongewijzigd.\n3. Beschikbaarheid: systemen en gegevens zijn beschikbaar wanneer nodig.\n4. Defense in depth: meerdere beveiligingslagen beschermen tegen dreigingen.\n5. Least privilege: minimale toegangsrechten voor elke gebruiker en systeem.",
+    },
+    {
+      heading: "4. Governance",
+      content: "",
+      subSections: [
+        {
+          heading: "4.1 Organisatie",
+          content: `${data.companyName} wijst de volgende rollen aan:\n- CISO / Security Officer: verantwoordelijk voor het cybersecurityprogramma.\n- IT-verantwoordelijke: dagelijks beheer van beveiligingsmaatregelen.\n- Management: eindverantwoordelijk voor cybersecurityrisico's.\n- Alle medewerkers: naleving van het beleid.`,
+        },
+        {
+          heading: "4.2 Beleidskader",
+          content: "Dit cybersecuritybeleid wordt ondersteund door specifieke beleidsdocumenten:\n- Toegangsbeleid\n- Netwerkbeveiligingsbeleid\n- Incidentresponsbeleid\n- Wachtwoordbeleid\n- Asset management beleid\n- Back-up en herstelbeleid\n- Kwetsbaarheids- en patchbeheer\n- Cryptografiebeleid\n- Leveranciersbeheerbeleid\n- Bewustmakingsbeleid",
+        },
+      ],
+    },
+    {
+      heading: "5. Risicobeheer",
+      content: `${data.companyName} voert periodiek risicobeoordelingen uit om dreigingen te identificeren en passende maatregelen te nemen. Het risicobeheerproces omvat:\n1. Identificatie van kritieke assets en processen.\n2. Beoordeling van dreigingen en kwetsbaarheden.\n3. Implementatie van beveiligingsmaatregelen.\n4. Continue monitoring en evaluatie.`,
+    },
+    {
+      heading: "6. Technische maatregelen",
+      content: "1. Firewall- en netwerkbeveiliging op alle perimeters.\n2. Antimalware en endpoint detection & response (EDR).\n3. Encryptie van gegevens in rust en transport.\n4. Patchbeheer en kwetsbaarheidsscans.\n5. Logboeken en SIEM voor monitoring.\n6. Back-up en disaster recovery.",
+    },
+    {
+      heading: "7. Compliance en rapportage",
+      content: `1. ${data.companyName} voldoet aan de NIS2-richtlijn en relevante wetgeving.\n2. Jaarlijkse cybersecurity-audit.\n3. Kwartaalrapportage aan het management.\n4. Meldplicht bij significante incidenten (24u/72u NIS2).`,
+    },
+    {
+      heading: "8. Continue verbetering",
+      content: "1. Jaarlijkse review van alle beveiligingsbeleidsdocumenten.\n2. Lessons learned uit incidenten en oefeningen.\n3. Benchmarking tegen actuele standaarden (ISO 27001, NIS2).\n4. Aanpassing aan nieuwe dreigingen en technologieën.",
+    },
+    {
+      heading: "9. Herziening",
+      content: "Dit beleid wordt minstens jaarlijks herzien en aangepast bij wijzigingen in de organisatie, het dreigingslandschap, technologie of wetgeving.",
+    },
+  ];
+}
+
+function getPatchManagementPolicySections(data: PolicyFormData): PolicySection[] {
+  return [
+    {
+      heading: "1. Inleiding",
+      content: `${data.companyName} heeft dit beleid voor patchbeheer opgesteld in het kader van de NIS2-richtlijn (ISO 27001 A.12.6). Dit document beschrijft hoe beveiligingspatches en software-updates worden beheerd en uitgerold.\n\nDit document werd opgesteld door ${data.author} en goedgekeurd door ${data.approvedBy} op ${data.approvalDate || data.date}.`,
+    },
+    {
+      heading: "2. Toepassingsgebied",
+      content: `Dit beleid geldt voor alle besturingssystemen, applicaties, firmware en netwerkapparatuur van ${data.companyName}, zowel on-premise als in de cloud.`,
+    },
+    {
+      heading: "3. Patchproces",
+      content: "",
+      subSections: [
+        {
+          heading: "3.1 Identificatie",
+          content: `${data.companyName} monitort continu op beschikbare patches via:\n- Leveranciersmeldingen en beveiligingsadviezen.\n- CERT-waarschuwingen en CVE-databases.\n- Geautomatiseerde patch-scantools.\n- Kwetsbaarheidsscans en penetratietests.`,
+        },
+        {
+          heading: "3.2 Prioritering",
+          content: "Patches worden geprioriteerd op basis van:\n- CVSS-score en ernstniveau.\n- Kriticiteit van het getroffen systeem.\n- Beschikbaarheid van actieve exploits.\n- Impact op bedrijfsprocessen.\n\nTermijnen:\n- Kritiek: binnen 24-48 uur.\n- Hoog: binnen 7 dagen.\n- Middel: binnen 30 dagen.\n- Laag: bij volgende onderhoudscyclus.",
+        },
+        {
+          heading: "3.3 Testen",
+          content: "1. Patches worden eerst getest in een testomgeving.\n2. Compatibiliteit met bestaande systemen wordt geverifieerd.\n3. Rollback-procedures worden voorbereid.\n4. Bij kritieke patches kan een versneld testproces worden gevolgd.",
+        },
+        {
+          heading: "3.4 Uitrol",
+          content: "1. Patches worden gefaseerd uitgerold (eerst niet-kritiek, dan productie).\n2. Uitrol vindt bij voorkeur buiten kantooruren plaats.\n3. Succesvolle installatie wordt geverifieerd.\n4. Documentatie wordt bijgewerkt.",
+        },
+      ],
+    },
+    {
+      heading: "4. Automatische updates",
+      content: "1. Werkstations: automatische updates worden waar mogelijk ingeschakeld.\n2. Servers: gecontroleerde update-cycli via changemanagement.\n3. Netwerkapparatuur: geplande firmware-updates.\n4. Mobiele apparaten: MDM-gestuurd patchbeheer.",
+    },
+    {
+      heading: "5. Uitzonderingen",
+      content: `Wanneer een patch niet tijdig kan worden geïnstalleerd, wordt een uitzondering geregistreerd met:\n- Reden voor uitstel.\n- Compenserende maatregelen.\n- Geplande installatiedatum.\n- Goedkeuring door ${data.approvedBy}.`,
+    },
+    {
+      heading: "6. Monitoring en rapportage",
+      content: "1. Wekelijks overzicht van patchstatus per systeem.\n2. Maandelijkse rapportage van patchcompliance.\n3. Dashboard met openstaande kritieke patches.\n4. Kwartaalrapportage aan het management.",
+    },
+    {
+      heading: "7. Rollen en verantwoordelijkheden",
+      content: `1. IT-beheerders: uitvoering van het patchproces.\n2. IT-verantwoordelijke: coördinatie en monitoring.\n3. Systeemeigenaren: goedkeuring van patches op hun systemen.\n4. ${data.approvedBy}: eindverantwoordelijke voor patchbeleid.`,
+    },
+    {
+      heading: "8. Herziening",
+      content: "Dit beleid wordt minstens jaarlijks herzien en aangepast bij wijzigingen in de infrastructuur, leveranciersrelaties of wettelijke vereisten.",
     },
   ];
 }

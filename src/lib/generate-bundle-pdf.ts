@@ -7,6 +7,7 @@ import { generateFrenchSections } from "./policy-templates-fr";
 const ALL_TYPES: PolicyType[] = [
   "access", "network", "incident", "bcp", "risk",
   "supply-chain", "crypto", "awareness", "vulnerability", "backup",
+  "asset-management", "password", "cybersecurity", "patch-management",
 ];
 
 function getSectionsForLang(data: PolicyFormData, lang: Language): PolicySection[] {
@@ -111,8 +112,10 @@ export async function generateBundlePDF(
       [t.pdfTitle, title],
       [t.pdfVersion, data.version || "1.0"],
       [t.pdfAuthor, data.author],
+      [t.pdfOwner, data.owner || data.author],
       [t.pdfApprovedBy, data.approvedBy],
       [t.pdfDate, data.date],
+      [t.pdfApprovalDate, data.approvalDate || data.date],
       [t.pdfClassification, t.pdfClassificationValue],
       [t.pdfStatus, t.pdfStatusValue],
     ];

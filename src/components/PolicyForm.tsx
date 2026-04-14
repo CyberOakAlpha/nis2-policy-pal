@@ -35,6 +35,7 @@ import { Download, FileText, Package, Map } from "lucide-react";
 const POLICY_TYPES: PolicyType[] = [
   "access", "network", "incident", "bcp", "risk",
   "supply-chain", "crypto", "awareness", "vulnerability", "backup",
+  "asset-management", "password", "cybersecurity", "patch-management",
 ];
 
 export function PolicyForm() {
@@ -42,8 +43,10 @@ export function PolicyForm() {
   const [form, setForm] = useState<PolicyFormData>({
     companyName: "",
     author: "",
+    owner: "",
     approvedBy: "",
     date: new Date().toISOString().split("T")[0],
+    approvalDate: new Date().toISOString().split("T")[0],
     version: "1.0",
     policyType: "access",
   });
@@ -60,6 +63,7 @@ export function PolicyForm() {
     ...form,
     companyName: form.companyName.trim() || "[company name]",
     author: form.author.trim() || "[author]",
+    owner: form.owner.trim() || "[owner]",
     approvedBy: form.approvedBy.trim() || "[approver]",
   }), [form]);
 
@@ -105,7 +109,7 @@ export function PolicyForm() {
     });
   };
 
-  const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim();
+  const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim() && form.owner.trim();
 
   const handleSavePDF = async () => {
     if (!isValid || loading) return;
@@ -168,12 +172,33 @@ export function PolicyForm() {
                 />
               </div>
               <div className="space-y-2">
+                <Label htmlFor="owner">{t.owner}</Label>
+                <Input
+                  id="owner"
+                  placeholder={t.ownerPlaceholder}
+                  value={form.owner}
+                  onChange={(e) => update("owner", e.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
                 <Label htmlFor="approvedBy">{t.approvedBy}</Label>
                 <Input
                   id="approvedBy"
                   placeholder={t.approvedByPlaceholder}
                   value={form.approvedBy}
                   onChange={(e) => update("approvedBy", e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="approvalDate">{t.approvalDate}</Label>
+                <Input
+                  id="approvalDate"
+                  type="date"
+                  value={form.approvalDate}
+                  onChange={(e) => update("approvalDate", e.target.value)}
                 />
               </div>
             </div>

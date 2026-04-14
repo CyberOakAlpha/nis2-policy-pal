@@ -3,7 +3,7 @@ import type { PolicyFormData, PolicySection } from "./policy-templates";
 export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
   const generators: Record<string, (d: PolicyFormData) => PolicySection[]> = {
     access: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this access policy in the context of the NIS2 directive. This document describes how access to systems, networks and information is granted, managed and monitored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this access policy in the context of the NIS2 directive. This document describes how access to systems, networks and information is granted, managed and monitored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to employees, external parties and suppliers who have access to ${d.companyName}'s systems or data. It covers both physical and digital access.` },
       { heading: "3. Core Principles", content: "1. Users receive only the rights necessary for their role.\n2. Access to information is granted only when needed for work.\n3. Critical tasks are divided among multiple people where possible.\n4. Every user must identify and authenticate before gaining access.\n5. Access rights are periodically reviewed and adjusted." },
       { heading: "4. User Management", content: "", subSections: [
@@ -18,7 +18,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Review", content: "This policy is reviewed at least annually and updated when the organization, risks or legal requirements change." },
     ],
     network: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this network access policy in the context of the NIS2 directive. This document describes how network access is managed, secured and monitored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this network access policy in the context of the NIS2 directive. This document describes how network access is managed, secured and monitored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all networks, systems and devices connected to ${d.companyName}'s infrastructure. It applies to employees, guests and external parties.` },
       { heading: "3. Network Segmentation", content: `${d.companyName}'s network is divided into zones based on sensitivity and function. Traffic between zones is controlled via firewalls and access lists. Critical systems are placed in shielded segments.` },
       { heading: "4. Wireless Networks", content: "", subSections: [
@@ -33,7 +33,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Review", content: "This policy is reviewed at least annually and updated upon changes in network infrastructure, threats or legislation." },
     ],
     incident: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this incident response policy in the context of the NIS2 directive. This document describes how cybersecurity incidents are detected, reported, managed and evaluated.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this incident response policy in the context of the NIS2 directive. This document describes how cybersecurity incidents are detected, reported, managed and evaluated.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all employees, systems and processes of ${d.companyName}. It applies to any security incident that may affect the confidentiality, integrity or availability of information.` },
       { heading: "3. Definition of an Incident", content: "A security incident is any event that jeopardizes the confidentiality, integrity or availability of information or systems. Examples include:\n1. Unauthorized access to systems or data.\n2. Malware infections or ransomware attacks.\n3. Data breaches or loss of sensitive information.\n4. Denial-of-service attacks.\n5. Phishing attacks with impact." },
       { heading: "4. Incident Classification", content: "", subSections: [
@@ -52,7 +52,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Review", content: "This policy is reviewed at least annually and after each significant incident, evaluated and updated if necessary." },
     ],
     bcp: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this business continuity plan in the context of the NIS2 directive. This document describes how the organization continues to function during and after a disruption.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this business continuity plan in the context of the NIS2 directive. This document describes how the organization continues to function during and after a disruption.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This plan applies to all critical processes, systems and services of ${d.companyName}. It covers both IT systems and business processes essential to the organization's operations.` },
       { heading: "3. Critical Processes and Systems", content: `${d.companyName} identifies and documents the following critical elements:\n1. Business processes essential for service delivery.\n2. IT systems and applications supporting these processes.\n3. Dependencies on external suppliers and partners.\n4. Data indispensable for business operations.` },
       { heading: "4. Risk Analysis", content: "", subSections: [
@@ -70,7 +70,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Review", content: "This plan is reviewed at least annually and updated upon changes in the organization, infrastructure, risks or legislation." },
     ],
     risk: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this risk management policy in the context of the NIS2 directive. This document describes how cyber risks are identified, assessed, treated and monitored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this risk management policy in the context of the NIS2 directive. This document describes how cyber risks are identified, assessed, treated and monitored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all information systems, networks, processes and data of ${d.companyName}. It applies to all employees and external parties.` },
       { heading: "3. Risk Management Process", content: "", subSections: [
         { heading: "3.1 Risk identification", content: `${d.companyName} systematically identifies risks through:\n- Inventory of critical assets and systems.\n- Analysis of threats and vulnerabilities.\n- Assessment of internal and external factors.\n- Consultation of relevant sources and threat intelligence.` },
@@ -84,7 +84,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in the organization, threat landscape or legislation." },
     ],
     "supply-chain": (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this supplier management policy in the context of the NIS2 directive. This document describes how the organization manages cybersecurity risks in the supply chain.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this supplier management policy in the context of the NIS2 directive. This document describes how the organization manages cybersecurity risks in the supply chain.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all suppliers, service providers and partners who have access to ${d.companyName}'s systems, networks or data, or who deliver products or services that may affect the organization's cybersecurity.` },
       { heading: "3. Supplier Selection", content: "When selecting suppliers, the following is considered:\n1. The supplier's cybersecurity level.\n2. Certifications and security standards (e.g. ISO 27001).\n3. References and track record in security.\n4. Willingness to comply with the organization's security requirements." },
       { heading: "4. Contractual Requirements", content: "", subSections: [
@@ -98,7 +98,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "9. Review", content: "This policy is reviewed at least annually and updated upon changes in supplier relationships, risks or legislation." },
     ],
     crypto: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this cryptography and encryption policy in the context of the NIS2 directive. This document describes how cryptographic measures are used to protect data.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this cryptography and encryption policy in the context of the NIS2 directive. This document describes how cryptographic measures are used to protect data.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all systems, applications and communication channels of ${d.companyName} in which confidential or sensitive data is processed, stored or transmitted.` },
       { heading: "3. Core Principles", content: "1. Confidential data is encrypted at rest and in transit.\n2. Only recognized and current cryptographic algorithms are used.\n3. Key management is separated from data storage.\n4. Cryptographic measures are aligned with the data classification level." },
       { heading: "4. Encryption in Transit", content: "", subSections: [
@@ -112,7 +112,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in technology, threats or legal requirements." },
     ],
     awareness: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this awareness and training policy in the context of the NIS2 directive. This document describes how employees are trained and made aware of cybersecurity risks.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this awareness and training policy in the context of the NIS2 directive. This document describes how employees are trained and made aware of cybersecurity risks.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all employees of ${d.companyName}, including temporary staff, interns and external workers who have access to systems or data.` },
       { heading: "3. Objectives", content: "1. Make employees aware of cyber threats and their role in security.\n2. Teach knowledge and skills for secure working.\n3. Create a security culture where everyone takes responsibility.\n4. Comply with the NIS2 requirement for awareness programs." },
       { heading: "4. Awareness Program", content: "", subSections: [
@@ -126,7 +126,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Review", content: "This policy is reviewed at least annually and updated for new threats, organizational changes or legal requirements." },
     ],
     vulnerability: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this vulnerability management policy in the context of the NIS2 directive. This document describes how vulnerabilities in systems and software are identified, assessed and remediated.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this vulnerability management policy in the context of the NIS2 directive. This document describes how vulnerabilities in systems and software are identified, assessed and remediated.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all IT systems, applications, network equipment and software of ${d.companyName}, both internally managed and outsourced.` },
       { heading: "3. Vulnerability Identification", content: `${d.companyName} identifies vulnerabilities through:\n1. Regular vulnerability scans of systems and networks.\n2. Monitoring security advisories from vendors and CERTs.\n3. Penetration tests (at least annually for critical systems).\n4. Assessment of new threat intelligence.` },
       { heading: "4. Assessment and Prioritization", content: "", subSections: [
@@ -139,7 +139,7 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in infrastructure, new threats or legal requirements." },
     ],
     backup: (d) => [
-      { heading: "1. Introduction", content: `${d.companyName} has established this backup and recovery policy in the context of the NIS2 directive. This document describes how data is backed up, stored and restored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.date}.` },
+      { heading: "1. Introduction", content: `${d.companyName} has established this backup and recovery policy in the context of the NIS2 directive. This document describes how data is backed up, stored and restored.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
       { heading: "2. Scope", content: `This policy applies to all data, systems and applications of ${d.companyName} that are essential for business operations.` },
       { heading: "3. Backup Strategy", content: "", subSections: [
         { heading: "3.1 Backup types", content: "The following backup types are used:\n- Full backup: periodic copy of all data.\n- Incremental backup: daily copy of changed data.\n- Differential backup: copy of all changes since the last full backup." },
@@ -154,6 +154,64 @@ export function generateEnglishSections(data: PolicyFormData): PolicySection[] {
       ]},
       { heading: "7. Monitoring and Reporting", content: "1. Backup processes are monitored daily for successful execution.\n2. Errors are immediately investigated and resolved.\n3. Monthly backup status reporting to management.\n4. Annual evaluation of the backup strategy." },
       { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in infrastructure, data needs or legal requirements." },
+    ],
+    // ===== NEW POLICY TYPES =====
+    "asset-management": (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} has established this asset management policy in the context of the NIS2 directive (ISO 27001 A.8). This document describes how all ICT assets are identified, classified, managed and protected.\n\nThis document was prepared by ${d.author}, owner is ${d.owner || d.author}. Approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
+      { heading: "2. Scope", content: `This policy applies to all hardware, software, data and network equipment of ${d.companyName}, including cloud resources, mobile devices and BYOD devices.` },
+      { heading: "3. Asset Inventory", content: "", subSections: [
+        { heading: "3.1 Registration", content: `All ICT assets of ${d.companyName} are registered in a central asset register containing at minimum:\n- Unique asset ID and name.\n- Type (hardware, software, data, network).\n- Owner and responsible person.\n- Location and department.\n- Criticality and classification.\n- Purchase and warranty date.` },
+        { heading: "3.2 Classification", content: "Assets are classified based on criticality:\n- Critical: outage directly impacts business continuity.\n- High: outage disrupts important processes.\n- Medium: outage has limited impact.\n- Low: no direct business impact." },
+        { heading: "3.3 Ownership", content: "Each asset has a designated owner responsible for:\n- Proper classification and labeling.\n- Application of security measures.\n- Periodic review of the asset.\n- Reporting changes or decommissioning." },
+      ]},
+      { heading: "4. Lifecycle Management", content: "1. Procurement: approval per purchasing process.\n2. Installation: configuration per security standards.\n3. Usage: monitoring and maintenance.\n4. Change: documentation of modifications.\n5. Decommissioning: secure data removal and physical destruction if needed." },
+      { heading: "5. Hardware Assets", content: `${d.companyName} registers all physical devices:\n1. Servers, workstations, laptops and tablets.\n2. Network equipment (switches, routers, firewalls, access points).\n3. Storage devices and backup media.\n4. Printers, scanners and multifunction devices.\n5. Mobile devices and IoT devices.` },
+      { heading: "6. Software Assets", content: "1. All software is registered with version, license and vendor.\n2. Only approved software may be installed.\n3. License compliance is periodically verified.\n4. End-of-life software is replaced in a timely manner.\n5. SaaS and cloud applications are included in the register." },
+      { heading: "7. Monitoring and Reporting", content: "1. The asset register is updated at least monthly.\n2. Quarterly asset status reporting to management.\n3. Annual complete asset audit.\n4. Automatic detection of unknown devices on the network." },
+      { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in the organization, infrastructure or legal requirements." },
+    ],
+    password: (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} has established this password policy in the context of the NIS2 directive (ISO 27001 A.9.4). This document describes the requirements for creating, managing and protecting passwords.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
+      { heading: "2. Scope", content: `This policy applies to all employees, external workers and suppliers who have access to ${d.companyName}'s systems or data.` },
+      { heading: "3. Password Requirements", content: "", subSections: [
+        { heading: "3.1 Complexity", content: "Passwords must meet the following requirements:\n- Minimum 14 characters long.\n- Contain at least one uppercase letter, one lowercase letter, one digit and one special character.\n- Must not contain personal information (name, date of birth).\n- Must not appear in known leaked password lists." },
+        { heading: "3.2 Validity", content: "1. Passwords expire after a maximum of 90 days.\n2. The last 12 passwords may not be reused.\n3. Accounts are locked after 5 failed login attempts.\n4. Temporary passwords must be changed at first login." },
+        { heading: "3.3 Storage", content: "1. Passwords are never stored in plain text.\n2. Strong hashing algorithms are used (bcrypt, Argon2).\n3. Passwords are not shared via email or chat.\n4. Use of an approved password manager is recommended." },
+      ]},
+      { heading: "4. Multi-Factor Authentication (MFA)", content: `${d.companyName} requires MFA for:\n1. All accounts with access to critical systems.\n2. VPN and remote access.\n3. Administrator and privileged accounts.\n4. Cloud services and email.\n5. Where possible, MFA is enabled for all users.` },
+      { heading: "5. Administrator Accounts", content: "1. Administrator accounts use separate, strong passwords.\n2. Default system passwords are immediately changed.\n3. Shared accounts are prohibited; each administrator has a personal account.\n4. Privileged Access Management (PAM) is used where possible." },
+      { heading: "6. Responsibilities", content: `1. Employees: keep passwords confidential and report suspicious use.\n2. IT department: manages the password policy and supports compliance.\n3. ${d.approvedBy}: ultimately responsible for the password policy.` },
+      { heading: "7. Awareness", content: "1. Employees are trained in safe password use.\n2. Periodic communication about password hygiene.\n3. Phishing simulations to test awareness." },
+      { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in threats, technology or legal requirements." },
+    ],
+    cybersecurity: (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} has established this overarching cybersecurity policy in the context of the NIS2 directive. This document describes the framework for protecting information, systems and networks against cyber threats.\n\nThis document was prepared by ${d.author}, owner is ${d.owner || d.author}. Approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
+      { heading: "2. Scope", content: `This policy applies to all information systems, networks, data and employees of ${d.companyName}. It forms the overarching framework within which all specific security policy documents operate.` },
+      { heading: "3. Security Principles", content: "1. Confidentiality: information is only accessible to authorized persons.\n2. Integrity: information and systems are accurate and unaltered.\n3. Availability: systems and data are available when needed.\n4. Defense in depth: multiple security layers protect against threats.\n5. Least privilege: minimal access rights for each user and system." },
+      { heading: "4. Governance", content: "", subSections: [
+        { heading: "4.1 Organization", content: `${d.companyName} designates the following roles:\n- CISO / Security Officer: responsible for the cybersecurity program.\n- IT manager: daily management of security measures.\n- Management: ultimately responsible for cybersecurity risks.\n- All employees: compliance with the policy.` },
+        { heading: "4.2 Policy framework", content: "This cybersecurity policy is supported by specific policy documents:\n- Access Policy\n- Network Security Policy\n- Incident Response Policy\n- Password Policy\n- Asset Management Policy\n- Backup & Recovery Policy\n- Vulnerability & Patch Management\n- Cryptography Policy\n- Supply Chain Management Policy\n- Awareness & Training Policy" },
+      ]},
+      { heading: "5. Risk Management", content: `${d.companyName} conducts periodic risk assessments to identify threats and take appropriate measures. The risk management process includes:\n1. Identification of critical assets and processes.\n2. Assessment of threats and vulnerabilities.\n3. Implementation of security measures.\n4. Continuous monitoring and evaluation.` },
+      { heading: "6. Technical Measures", content: "1. Firewall and network security on all perimeters.\n2. Anti-malware and endpoint detection & response (EDR).\n3. Encryption of data at rest and in transit.\n4. Patch management and vulnerability scans.\n5. Logging and SIEM for monitoring.\n6. Backup and disaster recovery." },
+      { heading: "7. Compliance and Reporting", content: `1. ${d.companyName} complies with the NIS2 directive and relevant legislation.\n2. Annual cybersecurity audit.\n3. Quarterly reporting to management.\n4. Reporting obligation for significant incidents (24h/72h NIS2).` },
+      { heading: "8. Continuous Improvement", content: "1. Annual review of all security policy documents.\n2. Lessons learned from incidents and exercises.\n3. Benchmarking against current standards (ISO 27001, NIS2).\n4. Adaptation to new threats and technologies." },
+      { heading: "9. Review", content: "This policy is reviewed at least annually and updated upon changes in the organization, threat landscape, technology or legislation." },
+    ],
+    "patch-management": (d) => [
+      { heading: "1. Introduction", content: `${d.companyName} has established this patch management policy in the context of the NIS2 directive (ISO 27001 A.12.6). This document describes how security patches and software updates are managed and deployed.\n\nThis document was prepared by ${d.author} and approved by ${d.approvedBy} on ${d.approvalDate || d.date}.` },
+      { heading: "2. Scope", content: `This policy applies to all operating systems, applications, firmware and network equipment of ${d.companyName}, both on-premise and in the cloud.` },
+      { heading: "3. Patch Process", content: "", subSections: [
+        { heading: "3.1 Identification", content: `${d.companyName} continuously monitors for available patches via:\n- Vendor notifications and security advisories.\n- CERT alerts and CVE databases.\n- Automated patch scanning tools.\n- Vulnerability scans and penetration tests.` },
+        { heading: "3.2 Prioritization", content: "Patches are prioritized based on:\n- CVSS score and severity level.\n- Criticality of the affected system.\n- Availability of active exploits.\n- Impact on business processes.\n\nTimelines:\n- Critical: within 24-48 hours.\n- High: within 7 days.\n- Medium: within 30 days.\n- Low: at next maintenance cycle." },
+        { heading: "3.3 Testing", content: "1. Patches are first tested in a test environment.\n2. Compatibility with existing systems is verified.\n3. Rollback procedures are prepared.\n4. For critical patches, an expedited testing process may be followed." },
+        { heading: "3.4 Deployment", content: "1. Patches are deployed in phases (non-critical first, then production).\n2. Deployment preferably occurs outside business hours.\n3. Successful installation is verified.\n4. Documentation is updated." },
+      ]},
+      { heading: "4. Automatic Updates", content: "1. Workstations: automatic updates are enabled where possible.\n2. Servers: controlled update cycles via change management.\n3. Network equipment: scheduled firmware updates.\n4. Mobile devices: MDM-driven patch management." },
+      { heading: "5. Exceptions", content: `When a patch cannot be installed in time, an exception is registered with:\n- Reason for delay.\n- Compensating measures.\n- Planned installation date.\n- Approval by ${d.approvedBy}.` },
+      { heading: "6. Monitoring and Reporting", content: "1. Weekly overview of patch status per system.\n2. Monthly patch compliance reporting.\n3. Dashboard with outstanding critical patches.\n4. Quarterly reporting to management." },
+      { heading: "7. Roles and Responsibilities", content: `1. IT administrators: execution of the patch process.\n2. IT manager: coordination and monitoring.\n3. System owners: approval of patches on their systems.\n4. ${d.approvedBy}: ultimately responsible for patch policy.` },
+      { heading: "8. Review", content: "This policy is reviewed at least annually and updated upon changes in infrastructure, vendor relationships or legal requirements." },
     ],
   };
   return generators[data.policyType](data);
