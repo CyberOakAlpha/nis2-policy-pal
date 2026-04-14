@@ -219,9 +219,8 @@ function RoadmapPage() {
                   </div>
                 </TabsContent>
               </Tabs>
-            </CardContent>
-          </Card>
-        )}
+          </DialogContent>
+        </Dialog>
 
         <div className="text-center pt-4">
           <Link to="/">
