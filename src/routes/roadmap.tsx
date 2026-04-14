@@ -58,21 +58,22 @@ function RoadmapPage() {
     <main className="flex min-h-screen justify-center bg-background p-4 py-8">
       <div className="w-full max-w-3xl space-y-5">
         <div className="flex items-center justify-between">
-          <Link to="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="mr-1 h-4 w-4" />
-              {t.backToGenerator}
-            </Button>
-          </Link>
-          <LanguageSwitcher />
-        </div>
-
-        <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
             {t.roadmapTitle}
           </h1>
-          <p className="text-muted-foreground">{t.roadmapSubtitle}</p>
+          <LanguageSwitcher />
         </div>
+
+        <nav className="flex items-center justify-end rounded-md bg-primary p-1.5 shadow-sm">
+          <Link to="/">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
+              <Home className="h-4 w-4" />
+              {t.backToGenerator}
+            </Button>
+          </Link>
+        </nav>
+
+        <p className="text-center text-muted-foreground">{t.roadmapSubtitle}</p>
 
         <div className="relative space-y-0">
           <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-border" />
