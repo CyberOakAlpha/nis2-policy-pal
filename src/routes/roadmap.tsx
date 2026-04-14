@@ -10,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Home, ChevronRight, Monitor, Server, Download, Shield } from "lucide-react";
-import { getControlsByStep, getControlText, CYFUN_CATEGORIES } from "@/lib/cyfun-controls";
+import { getControlsByStep, getControlText, getControlHint, CYFUN_CATEGORIES } from "@/lib/cyfun-controls";
 
 export const Route = createFileRoute("/roadmap")({
   component: RoadmapPage,
@@ -142,7 +142,10 @@ function RoadmapPage() {
                                     <Badge variant="outline" className="shrink-0 text-xs font-mono mt-0.5">
                                       {control.id}
                                     </Badge>
-                                    <span className="text-muted-foreground">{getControlText(control, lang)}</span>
+                                    <div className="space-y-0.5">
+                                      <span className="text-muted-foreground">{getControlText(control, lang)}</span>
+                                      <p className="text-xs text-muted-foreground/70 italic">{getControlHint(control, lang)}</p>
+                                    </div>
                                   </div>
                                 ))}
                               </div>
