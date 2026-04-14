@@ -8,7 +8,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ChevronRight, Monitor, Server, Download } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Home, ChevronRight, Monitor, Server, Download } from "lucide-react";
 
 export const Route = createFileRoute("/roadmap")({
   component: RoadmapPage,
@@ -57,21 +58,22 @@ function RoadmapPage() {
     <main className="flex min-h-screen justify-center bg-background p-4 py-8">
       <div className="w-full max-w-3xl space-y-5">
         <div className="flex items-center justify-between">
-          <Link to="/">
-            <Button variant="ghost" size="sm">
-              <ArrowLeft className="mr-1 h-4 w-4" />
-              {t.backToGenerator}
-            </Button>
-          </Link>
-          <LanguageSwitcher />
-        </div>
-
-        <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold tracking-tight text-foreground">
             {t.roadmapTitle}
           </h1>
-          <p className="text-muted-foreground">{t.roadmapSubtitle}</p>
+          <LanguageSwitcher />
         </div>
+
+        <nav className="flex items-center justify-end rounded-md bg-primary p-1.5 shadow-sm">
+          <Link to="/">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
+              <Home className="h-4 w-4" />
+              {t.backToGenerator}
+            </Button>
+          </Link>
+        </nav>
+
+        <p className="text-center text-muted-foreground">{t.roadmapSubtitle}</p>
 
         <div className="relative space-y-0">
           <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-border" />
@@ -111,7 +113,7 @@ function RoadmapPage() {
                             variant="outline"
                             size="sm"
                             className="mt-2"
-                            onClick={() => setShowAssetTemplate(!showAssetTemplate)}
+                            onClick={() => setShowAssetTemplate(true)}
                           >
                             <Monitor className="mr-1 h-4 w-4" />
                             {t.exampleAssets}
@@ -126,13 +128,12 @@ function RoadmapPage() {
           </Accordion>
         </div>
 
-        {showAssetTemplate && (
-          <Card className="animate-in fade-in slide-in-from-top-2">
-            <CardContent className="p-5 space-y-4">
-              <div className="text-center space-y-1">
-                <h2 className="text-xl font-bold text-foreground">{t.assetTemplateTitle}</h2>
-                <p className="text-sm text-muted-foreground">{t.assetTemplateSubtitle}</p>
-              </div>
+        <Dialog open={showAssetTemplate} onOpenChange={setShowAssetTemplate}>
+          <DialogContent className="max-w-3xl max-h-[85vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>{t.assetTemplateTitle}</DialogTitle>
+              <p className="text-sm text-muted-foreground">{t.assetTemplateSubtitle}</p>
+            </DialogHeader>
 
               <Tabs defaultValue="hardware">
                 <TabsList className="w-full">
@@ -218,17 +219,9 @@ function RoadmapPage() {
                   </div>
                 </TabsContent>
               </Tabs>
-            </CardContent>
-          </Card>
-        )}
+          </DialogContent>
+        </Dialog>
 
-        <div className="text-center pt-4">
-          <Link to="/">
-            <Button size="lg">
-              {t.backToGenerator}
-            </Button>
-          </Link>
-        </div>
       </div>
     </main>
   );
