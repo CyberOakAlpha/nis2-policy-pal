@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Home, Map, Shield } from "lucide-react";
-import { CYFUN_CONTROLS, CYFUN_CATEGORIES, getControlText, getCategoryName } from "@/lib/cyfun-controls";
+import { CYFUN_CONTROLS, CYFUN_CATEGORIES, getControlText, getControlHint, getCategoryName } from "@/lib/cyfun-controls";
 
 export const Route = createFileRoute("/cyfun")({
   component: CyFunPage,
@@ -106,7 +106,10 @@ function CyFunPage() {
                       <Badge variant="outline" className="shrink-0 text-xs font-mono mt-0.5">
                         {control.id}
                       </Badge>
-                      <span className="text-foreground">{getControlText(control, lang)}</span>
+                      <div className="space-y-0.5">
+                        <span className="text-foreground">{getControlText(control, lang)}</span>
+                        <p className="text-xs text-muted-foreground italic">{getControlHint(control, lang)}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
