@@ -112,7 +112,7 @@ const nl: Translations = {
   previewDescription: "Pas de tekst aan waar nodig en sla op als PDF.",
   savePdf: "Opslaan als PDF",
   generatingPdf: "PDF genereren...",
-  downloadAll: "Download alle 10 policies",
+  downloadAll: "Download alle 14 policies",
   downloadingAll: "Bundel genereren...",
 
   policyNames: {
@@ -217,7 +217,7 @@ const en: Translations = {
   previewDescription: "Edit the text where needed, then save as PDF.",
   savePdf: "Save as PDF",
   generatingPdf: "Generating PDF...",
-  downloadAll: "Download all 10 policies",
+  downloadAll: "Download all 14 policies",
   downloadingAll: "Generating bundle...",
 
   policyNames: {
@@ -322,7 +322,7 @@ const fr: Translations = {
   previewDescription: "Modifiez le texte si nécessaire, puis enregistrez en PDF.",
   savePdf: "Enregistrer en PDF",
   generatingPdf: "Génération du PDF...",
-  downloadAll: "Télécharger les 10 politiques",
+  downloadAll: "Télécharger les 14 politiques",
   downloadingAll: "Génération du lot...",
 
   policyNames: {
