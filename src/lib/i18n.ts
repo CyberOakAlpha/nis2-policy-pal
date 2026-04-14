@@ -194,6 +194,7 @@ const nl: Translations = {
 
   generator: "Generator",
   roadmap: "Stappenplan",
+  disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
 };
 
 const en: Translations = {
@@ -299,6 +300,7 @@ const en: Translations = {
 
   generator: "Generator",
   roadmap: "Roadmap",
+  disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
 };
 
 const fr: Translations = {
@@ -331,18 +333,18 @@ const fr: Translations = {
   policyNames: {
     access: "Access Policy",
     network: "Network Access Policy",
-    incident: "Politique de réponse aux incidents",
-    bcp: "Plan de continuité d'activité",
-    risk: "Politique de gestion des risques",
-    "supply-chain": "Gestion des fournisseurs",
-    crypto: "Cryptographie et chiffrement",
-    awareness: "Sensibilisation et formation",
-    vulnerability: "Gestion des vulnérabilités",
-    backup: "Sauvegarde et récupération",
-    "asset-management": "Gestion des actifs",
-    password: "Politique de mots de passe",
-    cybersecurity: "Politique de cybersécurité",
-    "patch-management": "Gestion des correctifs",
+    incident: "Incident Response Policy",
+    bcp: "Business Continuity Plan",
+    risk: "Risk Management Policy",
+    "supply-chain": "Supply Chain Management",
+    crypto: "Cryptography & Encryption",
+    awareness: "Awareness & Training",
+    vulnerability: "Vulnerability Management",
+    backup: "Backup & Recovery",
+    "asset-management": "Asset Management",
+    password: "Password Policy",
+    cybersecurity: "Cybersecurity Policy",
+    "patch-management": "Patch Management",
   },
 
   pdfDocControl: "Contrôle du document",
@@ -404,6 +406,7 @@ const fr: Translations = {
 
   generator: "Générateur",
   roadmap: "Plan d'action",
+  disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
 };
 
 const translations: Record<Language, Translations> = { nl, en, fr };
