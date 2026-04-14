@@ -35,14 +35,14 @@ function RoadmapPage() {
   const downloadCsv = (type: "hardware" | "software") => {
     let csv = "";
     if (type === "hardware") {
-      csv = `${t.assetColumnName},${t.assetColumnType},${t.assetColumnOwner},${t.assetColumnCriticality},${t.assetColumnLocation}\n`;
+      csv = `${t.assetColumnName},${t.assetColumnType},${t.assetColumnCriticality},${t.assetColumnOwner},${t.assetColumnLocation}\n`;
       t.hardwareAssets.forEach(a => {
-        csv += `"${a.name}","${a.type}","${a.owner}","${a.criticality}","${a.location}"\n`;
+        csv += `"${a.name}","${a.type}","${a.criticality}","${a.owner}","${a.location}"\n`;
       });
     } else {
-      csv = `${t.assetColumnName},${t.assetColumnType},${t.assetColumnVendor},${t.assetColumnVersion},${t.assetColumnLicense},${t.assetColumnCriticality}\n`;
+      csv = `${t.assetColumnName},${t.assetColumnType},${t.assetColumnCriticality},${t.assetColumnVendor},${t.assetColumnVersion},${t.assetColumnLicense}\n`;
       t.softwareAssets.forEach(a => {
-        csv += `"${a.name}","${a.type}","${a.vendor}","${a.version}","${a.license}","${a.criticality}"\n`;
+        csv += `"${a.name}","${a.type}","${a.criticality}","${a.vendor}","${a.version}","${a.license}"\n`;
       });
     }
     const blob = new Blob([csv], { type: "text/csv" });
@@ -153,8 +153,8 @@ function RoadmapPage() {
                       <TableRow>
                         <TableHead>{t.assetColumnName}</TableHead>
                         <TableHead>{t.assetColumnType}</TableHead>
-                        <TableHead>{t.assetColumnOwner}</TableHead>
                         <TableHead>{t.assetColumnCriticality}</TableHead>
+                        <TableHead>{t.assetColumnOwner}</TableHead>
                         <TableHead>{t.assetColumnLocation}</TableHead>
                       </TableRow>
                     </TableHeader>
@@ -163,12 +163,12 @@ function RoadmapPage() {
                         <TableRow key={i}>
                           <TableCell className="font-medium">{asset.name}</TableCell>
                           <TableCell>{asset.type}</TableCell>
-                          <TableCell>{asset.owner}</TableCell>
                           <TableCell>
                             <Badge variant={criticalityColor(asset.criticality)}>
                               {asset.criticality}
                             </Badge>
                           </TableCell>
+                          <TableCell>{asset.owner}</TableCell>
                           <TableCell>{asset.location}</TableCell>
                         </TableRow>
                       ))}
@@ -188,10 +188,10 @@ function RoadmapPage() {
                       <TableRow>
                         <TableHead>{t.assetColumnName}</TableHead>
                         <TableHead>{t.assetColumnType}</TableHead>
+                        <TableHead>{t.assetColumnCriticality}</TableHead>
                         <TableHead>{t.assetColumnVendor}</TableHead>
                         <TableHead>{t.assetColumnVersion}</TableHead>
                         <TableHead>{t.assetColumnLicense}</TableHead>
-                        <TableHead>{t.assetColumnCriticality}</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -199,14 +199,14 @@ function RoadmapPage() {
                         <TableRow key={i}>
                           <TableCell className="font-medium">{asset.name}</TableCell>
                           <TableCell>{asset.type}</TableCell>
-                          <TableCell>{asset.vendor}</TableCell>
-                          <TableCell>{asset.version}</TableCell>
-                          <TableCell>{asset.license}</TableCell>
                           <TableCell>
                             <Badge variant={criticalityColor(asset.criticality)}>
                               {asset.criticality}
                             </Badge>
                           </TableCell>
+                          <TableCell>{asset.vendor}</TableCell>
+                          <TableCell>{asset.version}</TableCell>
+                          <TableCell>{asset.license}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
