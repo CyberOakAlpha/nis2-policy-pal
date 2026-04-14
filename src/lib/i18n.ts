@@ -99,9 +99,12 @@ const nl: Translations = {
   companyNamePlaceholder: "bijv. Acme bv",
   author: "Auteur",
   authorPlaceholder: "Naam auteur",
+  owner: "Eigenaar",
+  ownerPlaceholder: "Naam eigenaar document",
   approvedBy: "Goedgekeurd door",
   approvedByPlaceholder: "Naam goedkeurder",
-  date: "Datum",
+  date: "Aanmaakdatum",
+  approvalDate: "Goedkeuringsdatum",
   version: "Versie",
   policyType: "Type beleid",
 
