@@ -63,6 +63,7 @@ export function PolicyForm() {
     ...form,
     companyName: form.companyName.trim() || "[company name]",
     author: form.author.trim() || "[author]",
+    owner: form.owner.trim() || "[owner]",
     approvedBy: form.approvedBy.trim() || "[approver]",
   }), [form]);
 
@@ -108,7 +109,7 @@ export function PolicyForm() {
     });
   };
 
-  const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim();
+  const isValid = form.companyName.trim() && form.author.trim() && form.approvedBy.trim() && form.owner.trim();
 
   const handleSavePDF = async () => {
     if (!isValid || loading) return;
