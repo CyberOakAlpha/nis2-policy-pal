@@ -9,7 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Home, ChevronRight, Monitor, Server, Download } from "lucide-react";
+import { Home, ChevronRight, Monitor, Server, Download, Shield } from "lucide-react";
+import { getControlsByStep, getControlText, CYFUN_CATEGORIES } from "@/lib/cyfun-controls";
 
 export const Route = createFileRoute("/roadmap")({
   component: RoadmapPage,
@@ -29,7 +30,7 @@ function criticalityColor(c: string) {
 }
 
 function RoadmapPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [showAssetTemplate, setShowAssetTemplate] = useState(false);
 
   const downloadCsv = (type: "hardware" | "software") => {
@@ -64,7 +65,13 @@ function RoadmapPage() {
           <LanguageSwitcher />
         </div>
 
-        <nav className="flex items-center justify-end rounded-md bg-primary p-1.5 shadow-sm">
+        <nav className="flex items-center justify-end gap-2 rounded-md bg-primary p-1.5 shadow-sm">
+          <Link to="/cyfun">
+            <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
+              <Shield className="h-4 w-4" />
+              {t.cyfunControls}
+            </Button>
+          </Link>
           <Link to="/">
             <Button variant="secondary" size="sm" className="gap-1.5 text-sm">
               <Home className="h-4 w-4" />
@@ -79,53 +86,85 @@ function RoadmapPage() {
           <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-border" />
 
           <Accordion type="multiple">
-            {t.roadmapSteps.map((step, index) => (
-              <div key={index} className="relative flex gap-4 py-3">
-                <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-lg shadow-md">
-                  {index + 1}
-                </div>
+            {t.roadmapSteps.map((step, index) => {
+              const controls = getControlsByStep(index);
+              return (
+                <div key={index} className="relative flex gap-4 py-3">
+                  <div className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-lg shadow-md">
+                    {index + 1}
+                  </div>
 
-                <Card className="flex-1">
-                  <AccordionItem value={`step-${index}`} className="border-0">
-                    <CardContent className="p-4 pb-0">
-                      <AccordionTrigger className="py-0 hover:no-underline">
-                        <div className="text-left">
-                          <h3 className="font-bold text-foreground text-lg mb-1">
-                            {step.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
-                            {step.description}
-                          </p>
-                        </div>
-                      </AccordionTrigger>
-                    </CardContent>
-                    <AccordionContent>
-                      <div className="px-4 pb-4 pt-2 space-y-2">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t.viewExamples}</p>
-                        {step.examples.map((ex, i) => (
-                          <div key={i} className="flex items-start gap-2 text-sm">
-                            <ChevronRight className="h-4 w-4 shrink-0 text-primary mt-0.5" />
-                            <span className="text-foreground">{ex}</span>
+                  <Card className="flex-1">
+                    <AccordionItem value={`step-${index}`} className="border-0">
+                      <CardContent className="p-4 pb-0">
+                        <AccordionTrigger className="py-0 hover:no-underline">
+                          <div className="text-left">
+                            <h3 className="font-bold text-foreground text-lg mb-1">
+                              {step.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground leading-relaxed">
+                              {step.description}
+                            </p>
                           </div>
-                        ))}
-                        {index === 0 && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="mt-2"
-                            onClick={() => setShowAssetTemplate(true)}
-                          >
-                            <Monitor className="mr-1 h-4 w-4" />
-                            {t.exampleAssets}
-                          </Button>
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Card>
-              </div>
-            ))}
+                        </AccordionTrigger>
+                      </CardContent>
+                      <AccordionContent>
+                        <div className="px-4 pb-4 pt-2 space-y-3">
+                          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{t.viewExamples}</p>
+                          {step.examples.map((ex, i) => (
+                            <div key={i} className="flex items-start gap-2 text-sm">
+                              <ChevronRight className="h-4 w-4 shrink-0 text-primary mt-0.5" />
+                              <span className="text-foreground">{ex}</span>
+                            </div>
+                          ))}
+                          {index === 0 && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="mt-2"
+                              onClick={() => setShowAssetTemplate(true)}
+                            >
+                              <Monitor className="mr-1 h-4 w-4" />
+                              {t.exampleAssets}
+                            </Button>
+                          )}
+
+                          {/* CyFun controls for this step */}
+                          {controls.length > 0 && (
+                            <div className="mt-3 pt-3 border-t border-border">
+                              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                                <Shield className="h-3.5 w-3.5" />
+                                {t.cyfunControlsForStep} ({controls.length})
+                              </p>
+                              <div className="space-y-1.5">
+                                {controls.map(control => (
+                                  <div key={control.id} className="flex items-start gap-2 text-sm">
+                                    <Badge variant="outline" className="shrink-0 text-xs font-mono mt-0.5">
+                                      {control.id}
+                                    </Badge>
+                                    <span className="text-muted-foreground">{getControlText(control, lang)}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Card>
+                </div>
+              );
+            })}
           </Accordion>
+        </div>
+
+        <div className="flex justify-center pt-2">
+          <Link to="/cyfun">
+            <Button variant="outline" className="gap-2">
+              <Shield className="h-4 w-4" />
+              {t.cyfunViewAll}
+            </Button>
+          </Link>
         </div>
 
         <Dialog open={showAssetTemplate} onOpenChange={setShowAssetTemplate}>

@@ -89,6 +89,16 @@ export interface Translations {
   // Nav
   generator: string;
   roadmap: string;
+
+  // CyFun
+  cyfunTitle: string;
+  cyfunSubtitle: string;
+  cyfunControls: string;
+  cyfunControlsForStep: string;
+  cyfunViewAll: string;
+  cyfunCategory: string;
+  cyfunTotal: string;
+  cyfunAllCategories: string;
 }
 
 const nl: Translations = {
@@ -195,6 +205,15 @@ const nl: Translations = {
   generator: "Generator",
   roadmap: "Stappenplan",
   disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
+
+  cyfunTitle: "CyberFundamentals Controls",
+  cyfunSubtitle: "Alle 93 CCB CyberFundamentals controls voor het niveau 'Belangrijk', gebaseerd op het NIST Cybersecurity Framework.",
+  cyfunControls: "CyFun controls",
+  cyfunControlsForStep: "Relevante CyFun controls",
+  cyfunViewAll: "Bekijk alle CyFun controls",
+  cyfunCategory: "Categorie",
+  cyfunTotal: "controls",
+  cyfunAllCategories: "Alle categorieën",
 };
 
 const en: Translations = {
@@ -301,6 +320,15 @@ const en: Translations = {
   generator: "Generator",
   roadmap: "Roadmap",
   disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
+
+  cyfunTitle: "CyberFundamentals Controls",
+  cyfunSubtitle: "All 93 CCB CyberFundamentals controls for the 'Important' level, based on the NIST Cybersecurity Framework.",
+  cyfunControls: "CyFun controls",
+  cyfunControlsForStep: "Related CyFun controls",
+  cyfunViewAll: "View all CyFun controls",
+  cyfunCategory: "Category",
+  cyfunTotal: "controls",
+  cyfunAllCategories: "All categories",
 };
 
 const fr: Translations = {
@@ -407,6 +435,15 @@ const fr: Translations = {
   generator: "Générateur",
   roadmap: "Plan d'action",
   disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
+
+  cyfunTitle: "CyberFundamentals Controls",
+  cyfunSubtitle: "Les 93 contrôles CCB CyberFundamentals pour le niveau 'Important', basés sur le NIST Cybersecurity Framework.",
+  cyfunControls: "Contrôles CyFun",
+  cyfunControlsForStep: "Contrôles CyFun associés",
+  cyfunViewAll: "Voir tous les contrôles CyFun",
+  cyfunCategory: "Catégorie",
+  cyfunTotal: "contrôles",
+  cyfunAllCategories: "Toutes les catégories",
 };
 
 const translations: Record<Language, Translations> = { nl, en, fr };
