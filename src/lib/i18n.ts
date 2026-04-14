@@ -21,9 +21,12 @@ export interface Translations {
   companyNamePlaceholder: string;
   author: string;
   authorPlaceholder: string;
+  owner: string;
+  ownerPlaceholder: string;
   approvedBy: string;
   approvedByPlaceholder: string;
   date: string;
+  approvalDate: string;
   version: string;
   policyType: string;
 
@@ -43,8 +46,10 @@ export interface Translations {
   pdfTitle: string;
   pdfVersion: string;
   pdfAuthor: string;
+  pdfOwner: string;
   pdfApprovedBy: string;
   pdfDate: string;
+  pdfApprovalDate: string;
   pdfClassification: string;
   pdfClassificationValue: string;
   pdfStatus: string;
