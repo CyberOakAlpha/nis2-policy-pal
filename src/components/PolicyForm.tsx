@@ -1,5 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "@tanstack/react-router";
+import { AlertTriangle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -326,6 +328,13 @@ export function PolicyForm() {
             </CardContent>
           </Card>
         )}
+
+        <Alert variant="destructive" className="border-amber-500/50 text-amber-700 dark:text-amber-400 [&>svg]:text-amber-600">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertDescription className="text-sm">
+            {t.disclaimer}
+          </AlertDescription>
+        </Alert>
       </div>
     </main>
   );

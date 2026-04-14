@@ -83,6 +83,9 @@ export interface Translations {
   softwareAssets: { name: string; type: string; vendor: string; version: string; license: string; criticality: string }[];
   downloadTemplate: string;
 
+  // Disclaimer
+  disclaimer: string;
+
   // Nav
   generator: string;
   roadmap: string;
@@ -116,20 +119,20 @@ const nl: Translations = {
   downloadingAll: "Bundel genereren...",
 
   policyNames: {
-    access: "Toegangsbeleid",
-    network: "Netwerktoegangsbeleid",
-    incident: "Incidentresponsbeleid",
-    bcp: "Bedrijfscontinuïteitsplan",
-    risk: "Risicobeheerbeleid",
-    "supply-chain": "Leveranciersbeheer",
-    crypto: "Cryptografie en encryptie",
-    awareness: "Bewustmaking en opleiding",
-    vulnerability: "Kwetsbaarheidsbeheer",
-    backup: "Back-up en herstel",
-    "asset-management": "Asset management",
-    password: "Wachtwoordbeleid",
-    cybersecurity: "Cybersecuritybeleid",
-    "patch-management": "Patchbeheer",
+    access: "Access Policy",
+    network: "Network Access Policy",
+    incident: "Incident Response Policy",
+    bcp: "Business Continuity Plan",
+    risk: "Risk Management Policy",
+    "supply-chain": "Supply Chain Management",
+    crypto: "Cryptography & Encryption",
+    awareness: "Awareness & Training",
+    vulnerability: "Vulnerability Management",
+    backup: "Backup & Recovery",
+    "asset-management": "Asset Management",
+    password: "Password Policy",
+    cybersecurity: "Cybersecurity Policy",
+    "patch-management": "Patch Management",
   },
 
   pdfDocControl: "Documentbeheer",
@@ -191,6 +194,7 @@ const nl: Translations = {
 
   generator: "Generator",
   roadmap: "Stappenplan",
+  disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
 };
 
 const en: Translations = {
@@ -296,6 +300,7 @@ const en: Translations = {
 
   generator: "Generator",
   roadmap: "Roadmap",
+  disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
 };
 
 const fr: Translations = {
@@ -326,20 +331,20 @@ const fr: Translations = {
   downloadingAll: "Génération du lot...",
 
   policyNames: {
-    access: "Politique d'accès",
-    network: "Politique d'accès réseau",
-    incident: "Politique de réponse aux incidents",
-    bcp: "Plan de continuité d'activité",
-    risk: "Politique de gestion des risques",
-    "supply-chain": "Gestion des fournisseurs",
-    crypto: "Cryptographie et chiffrement",
-    awareness: "Sensibilisation et formation",
-    vulnerability: "Gestion des vulnérabilités",
-    backup: "Sauvegarde et récupération",
-    "asset-management": "Gestion des actifs",
-    password: "Politique de mots de passe",
-    cybersecurity: "Politique de cybersécurité",
-    "patch-management": "Gestion des correctifs",
+    access: "Access Policy",
+    network: "Network Access Policy",
+    incident: "Incident Response Policy",
+    bcp: "Business Continuity Plan",
+    risk: "Risk Management Policy",
+    "supply-chain": "Supply Chain Management",
+    crypto: "Cryptography & Encryption",
+    awareness: "Awareness & Training",
+    vulnerability: "Vulnerability Management",
+    backup: "Backup & Recovery",
+    "asset-management": "Asset Management",
+    password: "Password Policy",
+    cybersecurity: "Cybersecurity Policy",
+    "patch-management": "Patch Management",
   },
 
   pdfDocControl: "Contrôle du document",
@@ -401,6 +406,7 @@ const fr: Translations = {
 
   generator: "Générateur",
   roadmap: "Plan d'action",
+  disclaimer: "These policy templates are provided as-is. They are general and intended to be adjusted to each company's specific needs to become NIS2 compliant. They might not contain all information needed.",
 };
 
 const translations: Record<Language, Translations> = { nl, en, fr };
