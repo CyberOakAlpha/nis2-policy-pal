@@ -101,17 +101,25 @@ function CyFunPage() {
               </CardHeader>
               <CardContent className="pt-0">
                 <div className="space-y-2">
-                  {controls.map(control => (
-                    <div key={control.id} className="flex items-start gap-2 text-sm py-1.5 border-b border-border last:border-0">
-                      <Badge variant="outline" className="shrink-0 text-xs font-mono mt-0.5">
-                        {control.id}
-                      </Badge>
-                      <div className="space-y-0.5">
-                        <span className="text-foreground">{getControlText(control, lang)}</span>
-                        <p className="text-xs text-muted-foreground italic">{getControlHint(control, lang)}</p>
+                  {controls.map(control => {
+                    const example = getControlExample(control, lang);
+                    return (
+                      <div key={control.id} className="flex items-start gap-2 text-sm py-1.5 border-b border-border last:border-0">
+                        <Badge variant="outline" className="shrink-0 text-xs font-mono mt-0.5">
+                          {control.id}
+                        </Badge>
+                        <div className="space-y-0.5">
+                          <span className="text-foreground">{getControlText(control, lang)}</span>
+                          <p className="text-xs text-muted-foreground italic">{getControlHint(control, lang)}</p>
+                          {example && (
+                            <p className="text-xs text-muted-foreground bg-muted/50 rounded px-2 py-1 mt-1">
+                              💡 {example}
+                            </p>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </CardContent>
             </Card>
