@@ -11,6 +11,10 @@ export interface CyFunControl {
   hint_nl: string;
   hint_en: string;
   hint_fr: string;
+  /** Optional short example table/text */
+  example_nl?: string;
+  example_en?: string;
+  example_fr?: string;
   /** Roadmap step indices (0-based) this control maps to */
   steps: number[];
 }
@@ -76,7 +80,10 @@ export const CYFUN_CONTROLS: CyFunControl[] = [
     fr: "Le rôle de l'organisation dans la chaîne d'approvisionnement est identifié et communiqué.",
     hint_nl: "Breng je toeleveringsketen in kaart (wie levert aan jou, aan wie lever jij) en leg beveiligingsverantwoordelijkheden vast in contracten en SLA's.",
     hint_en: "Map your supply chain (who supplies you, who you supply) and formalize security responsibilities in contracts and SLAs.",
-    hint_fr: "Cartographiez votre chaîne (qui vous fournit, à qui vous fournissez) et formalisez les responsabilités sécurité dans les contrats et SLA." },
+    hint_fr: "Cartographiez votre chaîne (qui vous fournit, à qui vous fournissez) et formalisez les responsabilités sécurité dans les contrats et SLA.",
+    example_nl: "Leverancier → jou: Microsoft 365 (e-mail), IT-partner (servers), boekhouder | Jij → klant: software, consultancy. Leg per partner vast: incident-melding binnen 24u, MFA verplicht, jaarlijkse review.",
+    example_en: "Supplier → you: Microsoft 365 (email), IT partner (servers), accountant | You → customer: software, consultancy. Per partner agree: incident notification within 24h, MFA required, annual review.",
+    example_fr: "Fournisseur → vous : Microsoft 365 (e-mail), partenaire IT (serveurs), comptable | Vous → client : logiciel, conseil. Par partenaire : notification d'incident sous 24h, MFA obligatoire, revue annuelle." },
   { id: "ID.BE-2", category: "ID", subcategory: "BE", steps: [1],
     nl: "De plaats van de organisatie in de kritieke infrastructuur wordt vastgesteld.",
     en: "The organization's place in critical infrastructure is identified and communicated.",
@@ -742,6 +749,11 @@ export function getControlText(control: CyFunControl, lang: Language): string {
 export function getControlHint(control: CyFunControl, lang: Language): string {
   const key = `hint_${lang}` as keyof CyFunControl;
   return control[key] as string;
+}
+
+export function getControlExample(control: CyFunControl, lang: Language): string | undefined {
+  const key = `example_${lang}` as keyof CyFunControl;
+  return control[key] as string | undefined;
 }
 
 export function getCategoryName(category: string, lang: Language): string {
