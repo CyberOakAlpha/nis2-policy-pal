@@ -751,6 +751,11 @@ export function getControlHint(control: CyFunControl, lang: Language): string {
   return control[key] as string;
 }
 
+export function getControlExample(control: CyFunControl, lang: Language): string | undefined {
+  const key = `example_${lang}` as keyof CyFunControl;
+  return control[key] as string | undefined;
+}
+
 export function getCategoryName(category: string, lang: Language): string {
   return CYFUN_CATEGORIES[category]?.[lang] ?? category;
 }
