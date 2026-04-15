@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Home, Map, Shield } from "lucide-react";
-import { CYFUN_CONTROLS, CYFUN_CATEGORIES, getControlText, getControlHint, getCategoryName } from "@/lib/cyfun-controls";
+import { CYFUN_CONTROLS, CYFUN_CATEGORIES, getControlText, getControlHint, getControlExample, getCategoryName } from "@/lib/cyfun-controls";
 
 export const Route = createFileRoute("/cyfun")({
   component: CyFunPage,
