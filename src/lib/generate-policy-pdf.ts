@@ -114,7 +114,8 @@ export async function generatePolicyPDF(
 
   // Sections
   for (const section of sections) {
-    checkPage(18);
+    // Ensure heading + at least ~40pt of content stay together
+    checkPage(50);
     doc.setFillColor(44, 82, 130);
     doc.rect(margin, y - 6, contentWidth, 9, "F");
     doc.setTextColor(255, 255, 255);
@@ -129,7 +130,8 @@ export async function generatePolicyPDF(
 
     if (section.subSections) {
       for (const sub of section.subSections) {
-        checkPage(14);
+        // Ensure sub-heading + at least ~30pt of content stay together
+        checkPage(40);
         doc.setFontSize(11);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(44, 82, 130);
