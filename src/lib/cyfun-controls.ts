@@ -11,6 +11,10 @@ export interface CyFunControl {
   hint_nl: string;
   hint_en: string;
   hint_fr: string;
+  /** Optional short example table/text */
+  example_nl?: string;
+  example_en?: string;
+  example_fr?: string;
   /** Roadmap step indices (0-based) this control maps to */
   steps: number[];
 }
